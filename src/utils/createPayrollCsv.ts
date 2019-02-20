@@ -11,12 +11,16 @@ export const createPayrollCsv = (
   headers: Header[],
   records: any
 ) => {
+  const name = `${shortid.generate()}.csv`;
+
   const csvWriter = createCsvWriter({
-    path: `csvs/${fileName}.csv`,
+    path: `csvs/${name}`,
     headers: headers
   });
 
   csvWriter.writeRecords(records).then(() => {
     console.log("...Done");
+
+    return name;
   });
 };
