@@ -6,11 +6,7 @@ interface Header {
   title: string;
 }
 
-export const createPayrollCsv = (
-  fileName: string,
-  headers: Header[],
-  records: any
-) => {
+export const createPayrollCsv = (headers: Header[], records: any) => {
   const name = `${shortid.generate()}.csv`;
 
   const csvWriter = createCsvWriter({
