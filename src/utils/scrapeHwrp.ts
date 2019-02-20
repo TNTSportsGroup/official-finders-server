@@ -1,0 +1,31 @@
+import cheerio from "cheerio";
+
+interface User {
+  name: string;
+  payment: string;
+}
+
+export const scrapeHWRP = (html: string) => {
+  var $ = cheerio.load(html);
+  var rows = $(`[name="myform"] table tbody tr[bgcolor^="#"]`);
+
+  let data: User[] = [];
+
+  rows.each((index, el) => {
+    const name = $(el)
+      .find(`input[name="paymentOID[]"] + b`)
+      .text();
+    const payment = $(el)
+      .find(`input[name="paymentAmount[]"] + font`)
+      .text();
+
+    let user: User = {
+      name,
+      payment
+    };
+
+    data.push(user);
+  });
+
+  return data;
+};
