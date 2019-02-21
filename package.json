@@ -5,7 +5,8 @@
   "author": "official-finders",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec ts-node src/index.ts"
+    "start": "nodemon --exec ts-node src/index.ts",
+    "test": "jest"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
