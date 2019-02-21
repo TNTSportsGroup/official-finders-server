@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add -D @types/csv-writer
+  /usr/local/bin/node /usr/local/bin/yarn add -D jestts-jest @types/jest
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fcsv-writer: Not found
+  Error: https://registry.yarnpkg.com/jestts-jest: Not found
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66255:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:129397:22)
       at Request.emit (events.js:189:13)
