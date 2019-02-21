@@ -7,7 +7,7 @@ export const hwrpRouter = express.Router();
 hwrpRouter.post("/", (req, res) => {
   if (req.files && req.files.file) {
     let file: any = req.files.file;
-    console.log(file);
+
     const { data } = file;
     let html = data.toString();
 
