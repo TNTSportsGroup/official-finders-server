@@ -24,8 +24,10 @@ hwrpRouter.post("/", (req, res) => {
     ];
 
     const name = createPayrollCsv(headers, userData);
-    console.log(name);
-  }
 
-  res.send("hi");
+    res.send({
+      userData,
+      fileName: name
+    });
+  }
 });
