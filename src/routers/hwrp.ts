@@ -1,6 +1,7 @@
 import express from "express";
 import { scrapeHWRP } from "../utils/scrapeHwrp";
 import { createPayrollCsv } from "../utils/createPayrollCsv";
+import { extractNegativesAndPositives } from "../utils/extractNegativesAndPositives";
 
 export const hwrpRouter = express.Router();
 
@@ -12,6 +13,11 @@ hwrpRouter.post("/", (req, res) => {
     let html = data.toString();
 
     const userData = scrapeHWRP(html);
+
+    const { positivePayment, negativePayment } = extractNegativesAndPositives(
+      userData
+    );
+
     const headers = [
       {
         id: "name",
@@ -23,11 +29,12 @@ hwrpRouter.post("/", (req, res) => {
       }
     ];
 
-    const name = createPayrollCsv(headers, userData);
+    const name = createPayrollCsv(headers, positivePayment);
 
     res.send({
-      userData,
-      fileName: name
+      userData: positivePayment,
+      fileName: name,
+      negative: negativePayment
     });
   }
 });
