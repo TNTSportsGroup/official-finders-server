@@ -5,6 +5,11 @@ import { extractNegativesAndPositives } from "../utils/extractNegativesAndPositi
 
 export const hwrpRouter = express.Router();
 
+
+hwrpRouter.get('/:name', (req, res) => {
+  console.log(req.params.name)
+})
+
 hwrpRouter.post("/", (req, res) => {
   if (req.files && req.files.file) {
     let file: any = req.files.file;
@@ -38,3 +43,5 @@ hwrpRouter.post("/", (req, res) => {
     });
   }
 });
+
+
