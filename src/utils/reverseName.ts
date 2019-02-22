@@ -1,4 +1,4 @@
-export const reverseName = name => {
+export const reverseName = (name: string) => {
   name = name
     .split(",")
     .reverse()
