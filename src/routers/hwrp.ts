@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import { scrapeHWRP } from "../utils/scrapeHwrp";
 import { createPayrollCsv } from "../utils/createPayrollCsv";
@@ -5,10 +6,16 @@ import { extractNegativesAndPositives } from "../utils/extractNegativesAndPositi
 
 export const hwrpRouter = express.Router();
 
-
-hwrpRouter.get('/:name', (req, res) => {
-  console.log(req.params.name)
-})
+hwrpRouter.get("/:name", (req, res) => {
+  console.log(req.params.name);
+  res.sendFile(
+    path.resolve(__dirname + `/../csvs/${req.params.name}`),
+    "payroll.csv",
+    e => {
+      console.log(e);
+    }
+  );
+});
 
 hwrpRouter.post("/", (req, res) => {
   if (req.files && req.files.file) {
@@ -43,5 +50,3 @@ hwrpRouter.post("/", (req, res) => {
     });
   }
 });
-
-
