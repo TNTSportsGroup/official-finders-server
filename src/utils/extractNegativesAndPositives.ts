@@ -4,6 +4,7 @@ import { reverseName } from "./reverseName";
 interface UserData {
   name: string;
   payment: string;
+  key?: string;
 }
 
 export const extractNegativesAndPositives = (data: UserData[]) => {
@@ -14,14 +15,16 @@ export const extractNegativesAndPositives = (data: UserData[]) => {
     if (isNegative(user.payment)) {
       user = {
         name: reverseName(user.name),
-        payment: user.payment
+        payment: user.payment,
+        key: user.name
       };
 
       negativePayment.push(user);
     } else {
       user = {
         name: reverseName(user.name),
-        payment: user.payment
+        payment: user.payment,
+        key: user.name
       };
       positivePayment.push(user);
     }
