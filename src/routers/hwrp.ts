@@ -7,7 +7,6 @@ import { extractNegativesAndPositives } from "../utils/extractNegativesAndPositi
 export const hwrpRouter = express.Router();
 
 hwrpRouter.get("/:name", (req, res) => {
-  console.log(req.params.name);
   res.sendFile(
     path.resolve(__dirname + `/../csvs/${req.params.name}`),
     "payroll.csv",
