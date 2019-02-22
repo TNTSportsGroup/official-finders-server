@@ -11,7 +11,9 @@ hwrpRouter.get("/:name", (req, res) => {
     path.resolve(__dirname + `/../csvs/${req.params.name}`),
     "payroll.csv",
     e => {
-      console.log(e);
+      if (e) {
+        console.log(e);
+      }
     }
   );
 });
