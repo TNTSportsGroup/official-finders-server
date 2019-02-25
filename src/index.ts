@@ -15,8 +15,6 @@ app.use(
   })
 );
 
-app.use("/csvs", express.static("csvs"));
-
 app.use("/hwrp", hwrpRouter);
 
 app.listen(port, () => {
