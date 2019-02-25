@@ -19,7 +19,7 @@ hwrpRouter.get("/:name", (req, res) => {
       });
     }
   } catch (err) {
-    res.send({
+    res.status(404).send({
       error: "file does not exist"
     });
   }
