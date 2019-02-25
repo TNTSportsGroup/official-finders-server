@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs";
 import express from "express";
 import { scrapeHWRP } from "../utils/scrapeHwrp";
 import { createPayrollCsv } from "../utils/createPayrollCsv";
@@ -7,15 +8,21 @@ import { extractNegativesAndPositives } from "../utils/extractNegativesAndPositi
 export const hwrpRouter = express.Router();
 
 hwrpRouter.get("/:name", (req, res) => {
-  res.sendFile(
-    path.resolve(__dirname + `/../csvs/${req.params.name}`),
-    "payroll.csv",
-    e => {
-      if (e) {
-        console.log(e);
-      }
+  const pathToFile = path.resolve(__dirname + `/../csvs/${req.params.name}`);
+
+  try {
+    if (fs.existsSync(pathToFile)) {
+      res.sendFile(pathToFile, "payroll.csv", e => {
+        if (e) {
+          console.log(e);
+        }
+      });
     }
-  );
+  } catch (err) {
+    res.send({
+      error: "file does not exist"
+    });
+  }
 });
 
 hwrpRouter.post("/", (req, res) => {
