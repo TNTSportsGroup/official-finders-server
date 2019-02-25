@@ -1,8 +1,8 @@
 import cheerio from "cheerio";
 
-interface User {
+export interface User {
   name: string;
-  payment: string;
+  amount: string;
 }
 
 export const scrapeHWRP = (html: string) => {
@@ -15,13 +15,13 @@ export const scrapeHWRP = (html: string) => {
     const name = $(el)
       .find(`input[name="paymentOID[]"] + b`)
       .text();
-    const payment = $(el)
+    const amount = $(el)
       .find(`input[name="paymentAmount[]"] + font`)
       .text();
 
     let user: User = {
       name,
-      payment
+      amount
     };
 
     data.push(user);
