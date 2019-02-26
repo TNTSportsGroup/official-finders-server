@@ -1,6 +1,19 @@
 import cheerio from "cheerio";
 
-export const scrapeHwrInvoices = html => {
+interface IGameInvoice {
+  ["ID"]: string;
+  ["Game Date"]: string;
+  ["Type"]: string;
+  ["Home Team"]: string;
+  ["Away Team"]: string;
+  ["Facility"]: string;
+  ["Game Fee"]: string;
+  ["Travel"]: string;
+  ["Other"]: string;
+  ["Total"]: string;
+}
+
+export const scrapeHwrInvoices = (html: string): IGameInvoice[] => {
   var $ = cheerio.load(html);
   var rows = $(`table[width="100%"] tbody tr[bgcolor^="#"]`);
   var rowsLength = rows.length;
@@ -17,7 +30,7 @@ export const scrapeHwrInvoices = html => {
     9: "Total"
   };
 
-  const data = [];
+  const data: IGameInvoice[] = [];
 
   rows.each((index, element) => {
     if (index === 0) {
@@ -31,7 +44,7 @@ export const scrapeHwrInvoices = html => {
       gameData[tableTitle[index]] = $(element).text();
     });
 
-    data.push(gameData);
+    data.push(gameData as IGameInvoice);
   });
 
   return data;
