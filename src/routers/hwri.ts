@@ -28,7 +28,6 @@ hwriRouter.post("/", (req, res) => {
       { id: "Type", title: "Type" },
       { id: "Home Team", title: "Home Team" },
       { id: "Away Team", title: "Away Team" },
-
       {
         id: "Facility",
         title: "Facility"
