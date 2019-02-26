@@ -14,11 +14,17 @@ hwriRouter.post("/", (req, res) => {
     let html = data.toString();
     const invoiceData = scrapeHwrInvoices(html);
     const invoiceMasterObj = createInvoiceObj(invoiceData);
-    let sumOfGames = 0;
+    const invoiceKeys = Object.keys(invoiceMasterObj);
+
+    let totalNumberOfGames = 0;
     Object.keys(invoiceMasterObj).forEach(key => {
-      sumOfGames += invoiceMasterObj[key].games.length;
+      totalNumberOfGames += invoiceMasterObj[key].games.length;
     });
 
-    console.log(sumOfGames);
+    res.send({
+      keys: invoiceKeys,
+      data: invoiceMasterObj,
+      totalNumberOfGames
+    });
   }
 });
