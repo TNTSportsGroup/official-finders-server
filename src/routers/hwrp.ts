@@ -8,7 +8,9 @@ import { extractNegativesAndPositives } from "../utils/extractNegativesAndPositi
 export const hwrpRouter = express.Router();
 
 hwrpRouter.get("/:name", (req, res) => {
-  const pathToFile = path.resolve(__dirname + `/../csvs/${req.params.name}`);
+  const pathToFile = path.resolve(
+    __dirname + `/../csvs/payroll/${req.params.name}`
+  );
 
   try {
     if (fs.existsSync(pathToFile)) {

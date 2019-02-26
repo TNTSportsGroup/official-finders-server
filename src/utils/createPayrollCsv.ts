@@ -11,7 +11,7 @@ export const createPayrollCsv = (headers: Header[], records: any) => {
   const name = `${shortid.generate()}.csv`;
 
   const csvWriter = createCsvWriter({
-    path: path.resolve(__dirname + `/../csvs/${name}`),
+    path: path.resolve(__dirname + `/../csvs/payroll/${name}`),
     header: headers
   });
 
