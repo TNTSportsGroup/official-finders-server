@@ -2,7 +2,7 @@ const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 import * as shortid from "shortid";
 import path from "path";
 
-interface Header {
+export interface Header {
   id: string;
   title: string;
 }
