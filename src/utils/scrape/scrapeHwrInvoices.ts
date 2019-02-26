@@ -1,6 +1,6 @@
 import cheerio from "cheerio";
 
-interface IGameInvoice {
+export interface IGameInvoice {
   ["ID"]: string;
   ["Game Date"]: string;
   ["Type"]: string;
