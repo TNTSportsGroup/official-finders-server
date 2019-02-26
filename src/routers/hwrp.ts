@@ -40,8 +40,6 @@ hwrpRouter.post("/", (req, res) => {
       userData
     );
 
-    console.log(positivePayment);
-
     const headers = [
       {
         id: "name",
