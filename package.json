@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
