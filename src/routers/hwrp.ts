@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import express from "express";
-import { scrapeHWRP } from "../utils/scrapeHwrp";
+import { scrapeHWRP } from "../utils/scrape/scrapeHwrp";
 import { createPayrollCsv } from "../utils/createPayrollCsv";
 import { extractNegativesAndPositives } from "../utils/extractNegativesAndPositives";
 
