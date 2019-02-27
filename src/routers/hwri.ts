@@ -38,12 +38,13 @@ hwriRouter.post("/", (req, res) => {
       }
     ];
 
-    createInvoiceCsvs(headers, invoiceMasterObj);
+    const folderName = createInvoiceCsvs(headers, invoiceMasterObj);
 
     res.send({
       keys: invoiceKeys,
       data: invoiceMasterObj,
-      totalNumberOfGames
+      totalNumberOfGames,
+      folderName
     });
   }
 });
