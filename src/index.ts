@@ -17,7 +17,7 @@ app.use(
 );
 
 app.use("/hwrp", hwrpRouter);
-app.use('/hwri', hwriRouter);
+app.use("/hwri", hwriRouter);
 
 app.listen(port, () => {
   console.log(`server is running on http://localhost:${port}`);
