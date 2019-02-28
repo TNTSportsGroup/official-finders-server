@@ -49,6 +49,7 @@ hwriRouter.post("/", (req, res) => {
     let html = data.toString();
     const invoiceData = scrapeHwrInvoices(html);
     const invoiceMasterObj = createInvoiceObj(invoiceData);
+    console.log(invoiceMasterObj);
     const invoiceKeys = Object.keys(invoiceMasterObj);
 
     let totalNumberOfGames = 0;
@@ -69,6 +70,10 @@ hwriRouter.post("/", (req, res) => {
       {
         id: "Total",
         title: "Total"
+      },
+      {
+        id: "Current Total",
+        title: "Current Total"
       }
     ];
 
