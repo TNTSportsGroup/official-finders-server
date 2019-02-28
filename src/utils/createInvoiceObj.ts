@@ -1,10 +1,13 @@
 import { IGameInvoice } from "./scrape/scrapeHwrInvoices";
 import { getInvoiceName } from "./getInvoiceName";
+import { convertToSummableValue } from "./convertToSummableValue";
 
 export const createInvoiceObj = (data: IGameInvoice[]) => {
   const invoiceObj = {};
   getKeys(data, invoiceObj);
   insertGames(data, invoiceObj);
+
+  SumUpMoney(invoiceObj);
 
   return invoiceObj;
 };
@@ -30,5 +33,18 @@ const insertGames = (data: IGameInvoice[], obj: object) => {
     if (obj[keyItBelongsTo]) {
       obj[keyItBelongsTo].games.push(value);
     }
+  });
+};
+
+const SumUpMoney = invoiceObj => {
+  return Object.keys(invoiceObj).forEach(key => {
+    let totalSum = 0;
+    invoiceObj[key].games = invoiceObj[key].games.map(game => {
+      totalSum += convertToSummableValue(game.Total);
+      return {
+        ...game,
+        ["Current Total"]: `$${totalSum}`
+      };
+    });
   });
 };
