@@ -8,7 +8,8 @@
     "start": "nodemon --exec ts-node src/index.ts",
     "test": "jest",
     "test:watch": "jest --watch",
-    "clean:invoices": "rimraf ./src/csvs/invoices/*"
+    "clean:invoices": "rimraf ./src/csvs/invoices/*",
+    "clean:payrolls": "rimraf ./src/csvs/payroll/*"
   },
   "dependencies": {
     "archiver": "^3.0.0",
