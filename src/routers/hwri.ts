@@ -27,7 +27,11 @@ hwriRouter.get("/:folderName", (req, res) => {
         cwd: pathToFolder
       });
 
-      res.sendFile(pathToFolder + "/invoice.zip");
+      res.sendFile(pathToFolder + "/invoice.zip", {
+        headers: {
+          "content-type": "application/zip"
+        }
+      });
 
       // fs.readdirSync(pathToFolder).forEach(file => {
       //   console.log(file);
