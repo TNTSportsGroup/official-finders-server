@@ -4,7 +4,7 @@ import child_process from "child_process";
 import express from "express";
 import archiver from "archiver";
 import { scrapeHwrInvoices } from "../utils/scrape/scrapeHwrInvoices";
-import { createInvoiceObj } from "../utils/createInvoiceObj";
+import { createInvoiceObj, getCompleteTotal } from "../utils/createInvoiceObj";
 import { createInvoiceCsvs } from "../utils/createInvoiceCsv";
 
 export const hwriRouter = express.Router();
@@ -49,7 +49,8 @@ hwriRouter.post("/", (req, res) => {
     let html = data.toString();
     const invoiceData = scrapeHwrInvoices(html);
     const invoiceMasterObj = createInvoiceObj(invoiceData);
-    console.log(invoiceMasterObj);
+    const completeTotal = getCompleteTotal(invoiceMasterObj);
+    console.log(completeTotal);
     const invoiceKeys = Object.keys(invoiceMasterObj);
 
     let totalNumberOfGames = 0;
