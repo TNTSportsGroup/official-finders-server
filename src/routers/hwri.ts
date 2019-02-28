@@ -84,7 +84,8 @@ hwriRouter.post("/", (req, res) => {
       keys: invoiceKeys,
       data: invoiceMasterObj,
       totalNumberOfGames,
-      folderName
+      folderName,
+      completeTotal
     });
   }
 });
