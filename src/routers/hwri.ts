@@ -16,13 +16,6 @@ hwriRouter.get("/:folderName", (req, res) => {
 
   try {
     if (fs.existsSync(pathToFolder)) {
-      // const fileName = "ouotput.zip";
-      // const fileOutput = fs.createWriteStream(fileName);
-      // let zip = archiver("zip");
-
-      // zip.glob(pathToFolder);
-      // zip.finalize();
-
       child_process.execSync(`zip -r invoice *`, {
         cwd: pathToFolder
       });
@@ -32,11 +25,6 @@ hwriRouter.get("/:folderName", (req, res) => {
           "content-type": "application/zip"
         }
       });
-
-      // fs.readdirSync(pathToFolder).forEach(file => {
-      //   console.log(file);
-      //   zip.append();
-      // });
     }
   } catch (err) {
     res.status(404).send({
