@@ -39,11 +39,12 @@ const insertGames = (data: IGameInvoice[], obj: object) => {
 const SumUpMoney = invoiceObj => {
   return Object.keys(invoiceObj).forEach(key => {
     let totalSum = 0;
-    invoiceObj[key].games = invoiceObj[key].games.map(game => {
+    invoiceObj[key].games = invoiceObj[key].games.map((game, index) => {
       totalSum += convertToSummableValue(game.Total);
       return {
         ...game,
-        ["Current Total"]: `$${totalSum}`
+        ["Grand Total"]:
+          index === invoiceObj[key].games.length - 1 ? `$${totalSum}` : ""
       };
     });
   });
@@ -57,7 +58,7 @@ export const getCompleteTotal = invoiceObj => {
       prev +
       convertToSummableValue(
         invoiceObj[current].games[invoiceObj[current].games.length - 1][
-          "Current Total"
+          "Grand Total"
         ]
       )
     );
