@@ -65,8 +65,8 @@ hwriRouter.post("/", (req, res) => {
         title: "Total"
       },
       {
-        id: "Current Total",
-        title: "Current Total"
+        id: "Grand Total",
+        title: "Grand Total"
       }
     ];
 
