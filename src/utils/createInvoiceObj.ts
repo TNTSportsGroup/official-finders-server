@@ -2,7 +2,13 @@ import { IGameInvoice } from "./scrape/scrapeHwrInvoices";
 import { getInvoiceName } from "./getInvoiceName";
 import { convertToSummableValue } from "./convertToSummableValue";
 
-export const createInvoiceObj = (data: IGameInvoice[]) => {
+interface InvoiceObj {
+  [key: string]: {
+    games: [];
+  };
+}
+
+export const createInvoiceObj = (data: IGameInvoice[]): InvoiceObj => {
   const invoiceObj = {};
   getKeys(data, invoiceObj);
   insertGames(data, invoiceObj);
