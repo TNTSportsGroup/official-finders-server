@@ -2,7 +2,7 @@ const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 import * as shortid from "shortid";
 import fs from "fs";
 import path from "path";
-import { createPayrollCsv, Header } from "./createPayrollCsv";
+import { Header } from "./createPayrollCsv";
 import { IGameInvoice } from "./scrape/scrapeHwrInvoices";
 
 export const createInvoiceCsvs = (headers: Header[], records) => {
