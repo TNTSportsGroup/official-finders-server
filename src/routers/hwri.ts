@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 import child_process from "child_process";
 import express from "express";
-import archiver from "archiver";
+
 import { scrapeHwrInvoices } from "../utils/scrape/scrapeHwrInvoices";
 import { createInvoiceObj, getCompleteTotal } from "../utils/createInvoiceObj";
 import { createInvoiceCsvs } from "../utils/createInvoiceCsv";
