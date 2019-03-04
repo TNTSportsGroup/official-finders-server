@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { hwrpRouter } from "./routers/hwrp";
 import fileUpload from "express-fileupload";
 import { hwriRouter } from "./routers/hwri";
+import { QsRouter } from "./routers/qs";
 
 const port = 3000;
 
@@ -18,6 +19,7 @@ app.use(
 
 app.use("/hwrp", hwrpRouter);
 app.use("/hwri", hwriRouter);
+app.use("/qs", QsRouter);
 
 app.listen(port, () => {
   console.log(`server is running on http://localhost:${port}`);
