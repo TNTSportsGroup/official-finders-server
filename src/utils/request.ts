@@ -65,12 +65,16 @@ export class QuickScoreReq {
   }
 
   async location(locationID: string) {
-    const response = await axios.get(
-      `http://www.quickscores.com/API/LocationPage.php?OrgDir=${
-        this.orgDir
-      }&APIAuthToken=${this.authToken}&LocationID=${locationID}`
-    );
+    try {
+      const response = await axios.get(
+        `http://www.quickscores.com/API/LocationPage.php?OrgDir=${
+          this.orgDir
+        }&APIAuthToken=${this.authToken}&LocationID=${locationID}`
+      );
 
-    return response;
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
