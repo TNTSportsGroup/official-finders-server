@@ -16,7 +16,7 @@ hwriRouter.get("/:folderName", (req, res) => {
 
   try {
     if (fs.existsSync(pathToFolder)) {
-      child_process.execSync(`zip -r invoice *`, {
+      child_process.exec(`zip -r invoice *`, {
         cwd: pathToFolder
       });
 
