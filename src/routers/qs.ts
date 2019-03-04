@@ -1,27 +1,21 @@
 import express from "express";
-import axios from "axios";
+
 import { QuickScoreReq } from "../utils/request";
+
+const QUICKSCOREDIR = {
+  GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
+  GLEN_ELLYN_YOUTH_BASEBALL: "geyba"
+};
 
 export const QsRouter = express.Router();
 
 QsRouter.get("/", async (req, res) => {
-  //   const demo = new QuickScoreReq("geyba", "fDo!r3Ia");
+  const demo = new QuickScoreReq(
+    QUICKSCOREDIR.GLEN_ELLYN_PARK_DISTRICT,
+    process.env.GLEN_ELLYN_PARK_DISTRICT
+  );
 
-  //   const data = demo.orgInfo();
+  const data = await demo.orgInfo();
 
-  //   console.log(data);
-
-  try {
-    const response = await axios.get(
-      "https://www.quickscores.com/API/OrgInfo.php?OrgDir=geyba&APIAuthToken=fDo!r3Ia"
-    );
-
-    console.log(response);
-
-    res.send({
-      data: response.data
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  console.log(data);
 });
