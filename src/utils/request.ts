@@ -15,4 +15,14 @@ class QuickScoreReq {
 
     return response;
   }
+
+  async eventList() {
+    const response = await fetch(
+      `https://www.quickscores.com/API/EventList.php?OrgDir=${
+        this.orgDir
+      }&APIAuthToken=${this.authToken}`
+    );
+
+    return response;
+  }
 }
