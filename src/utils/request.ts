@@ -23,13 +23,17 @@ export class QuickScoreReq {
   }
 
   async eventList() {
-    const response = await axios.get(
-      `https://www.quickscores.com/API/EventList.php?OrgDir=${
-        this.orgDir
-      }&APIAuthToken=${this.authToken}`
-    );
+    try {
+      const response = await axios.get(
+        `https://www.quickscores.com/API/EventList.php?OrgDir=${
+          this.orgDir
+        }&APIAuthToken=${this.authToken}`
+      );
 
-    return response.data;
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async scheduleInfo(leagueID: string) {
