@@ -37,13 +37,17 @@ export class QuickScoreReq {
   }
 
   async scheduleInfo(leagueID: string) {
-    const response = await axios.get(
-      `http://www.quickscores.com/API/ScheduleInfo.php?OrgDir=${
-        this.orgDir
-      }&APIAuthToken=${this.authToken}&LeagueID=${leagueID}`
-    );
+    try {
+      const response = await axios.get(
+        `http://www.quickscores.com/API/ScheduleInfo.php?OrgDir=${
+          this.orgDir
+        }&APIAuthToken=${this.authToken}&LeagueID=${leagueID}`
+      );
 
-    return response;
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async locationList() {
