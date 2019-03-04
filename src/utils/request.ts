@@ -45,4 +45,14 @@ class QuickScoreReq {
 
     return response;
   }
+
+  async location(locationID: string) {
+    const response = await fetch(
+      `http://www.quickscores.com/API/LocationPage.php?OrgDir=${
+        this.orgDir
+      }&APIAuthToken=${this.authToken}&LocationID=${locationID}`
+    );
+
+    return response;
+  }
 }
