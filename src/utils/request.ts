@@ -43,13 +43,17 @@ export class QuickScoreReq {
   }
 
   async locationList() {
-    const response = await axios.get(
-      `http://www.quickscores.com/API/LocationsList.php?OrgDir=${
-        this.orgDir
-      }&APIAuthToken=${this.authToken}`
-    );
+    try {
+      const response = await axios.get(
+        `http://www.quickscores.com/API/LocationsList.php?OrgDir=${
+          this.orgDir
+        }&APIAuthToken=${this.authToken}`
+      );
 
-    return response;
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async location(locationID: string) {
