@@ -25,4 +25,14 @@ class QuickScoreReq {
 
     return response;
   }
+
+  async scheduleInfo(leagueID: string) {
+    const response = await fetch(
+      `http://www.quickscores.com/API/ScheduleInfo.php?OrgDir=${
+        this.orgDir
+      }&APIAuthToken=${this.authToken}&LeagueID=${leagueID}`
+    );
+
+    return response;
+  }
 }
