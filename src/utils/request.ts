@@ -1,4 +1,6 @@
-class QuickScoreReq {
+import axios from "axios";
+
+export class QuickScoreReq {
   private orgDir: string;
   private authToken: string;
   constructor(orgDir: string, authToken: string) {
@@ -7,27 +9,31 @@ class QuickScoreReq {
   }
 
   async orgInfo() {
-    const response = await fetch(
-      `https://wwww.quickscores.com/API/OrgInfo.php?OrgDir=${
-        this.orgDir
-      }&APIAuthToken=${this.authToken}`
-    );
+    try {
+      const response = await axios.get(
+        `https://www.quickscores.com/API/OrgInfo.php?OrgDir=${
+          this.orgDir
+        }&APIAuthToken=${this.authToken}`
+      );
 
-    return response;
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async eventList() {
-    const response = await fetch(
+    const response = await axios.get(
       `https://www.quickscores.com/API/EventList.php?OrgDir=${
         this.orgDir
       }&APIAuthToken=${this.authToken}`
     );
 
-    return response;
+    return response.data;
   }
 
   async scheduleInfo(leagueID: string) {
-    const response = await fetch(
+    const response = await axios.get(
       `http://www.quickscores.com/API/ScheduleInfo.php?OrgDir=${
         this.orgDir
       }&APIAuthToken=${this.authToken}&LeagueID=${leagueID}`
@@ -37,7 +43,7 @@ class QuickScoreReq {
   }
 
   async locationList() {
-    const response = await fetch(
+    const response = await axios.get(
       `http://www.quickscores.com/API/LocationsList.php?OrgDir=${
         this.orgDir
       }&APIAuthToken=${this.authToken}`
@@ -47,7 +53,7 @@ class QuickScoreReq {
   }
 
   async location(locationID: string) {
-    const response = await fetch(
+    const response = await axios.get(
       `http://www.quickscores.com/API/LocationPage.php?OrgDir=${
         this.orgDir
       }&APIAuthToken=${this.authToken}&LocationID=${locationID}`
