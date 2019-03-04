@@ -15,7 +15,16 @@ QsRouter.get("/", async (req, res) => {
     process.env.GLEN_ELLYN_PARK_DISTRICT
   );
 
-  const data = await demo.orgInfo();
+  const data = await demo.eventList();
+  const seasonSchedule = data.filter(item => item.Season === "Winter 2019");
+  const firstLeague = seasonSchedule[4];
 
-  console.log(data);
+  let gamesForLeague = await demo.scheduleInfo(firstLeague.LeagueID);
+  const gameData = gamesForLeague.RegularGameData.filter(
+    game => game.Date >= "2019-03-01"
+  );
+
+  res.send({
+    data: seasonSchedule
+  });
 });
