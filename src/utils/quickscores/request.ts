@@ -1,6 +1,6 @@
 import axios from "axios";
 
-interface IEvent {
+export interface IEvent {
   LeagueID: string;
   EventOrder: string;
   Season: string;
@@ -17,7 +17,7 @@ interface IEvent {
   DayOfWeek: string;
 }
 
-interface ISchedule {
+export interface ISchedule {
   LeagueID: string;
   ExternalEventID: string;
   LeagueName: string;
