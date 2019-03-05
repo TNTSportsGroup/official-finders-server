@@ -1,5 +1,5 @@
 import express from "express";
-import { QuickScoreReq } from "../utils/quickscores/request";
+import { QuickScoreReq, IEvent } from "../utils/quickscores/request";
 import { filterBy } from "../utils/quickscores/filterBy";
 
 const QUICKSCOREDIR = {
@@ -7,7 +7,9 @@ const QUICKSCOREDIR = {
   GLEN_ELLYN_YOUTH_BASEBALL: "geyba"
 };
 
-const filterBySeason = filterBy(league => league.Season === "Winter 2019");
+const filterBySeason = filterBy<IEvent>(
+  league => league.Season === "Winter 2019"
+);
 
 export const QsRouter = express.Router();
 
