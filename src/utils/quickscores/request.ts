@@ -8,7 +8,34 @@ export class QuickScoreReq {
     this.authToken = authToken;
   }
 
-  async orgInfo() {
+  async orgInfo(): Promise<{
+    OrgName: string;
+    OrgDir: string;
+    City: string;
+    State: string;
+    Zip: string;
+    Latitude: string;
+    Longitude: string;
+    TimeZone: string;
+    DisplayOrgName: string;
+    Logo: string;
+    DisplayUrl: string;
+    HomePageHTML: string;
+    MobileHomePageHTML: string;
+    MessageLastUpdated: string;
+    HomePageBgColor: string;
+    MobileDisplayOrgName: string;
+    MobileHeaderLogo: string;
+    ContactUs: string;
+    Downloads: [
+      {
+        displayName: string;
+        FileUrl: string;
+        GroupName: string;
+        LastUpdated: string;
+      }
+    ];
+  }> {
     try {
       const response = await axios.get(
         `https://www.quickscores.com/API/OrgInfo.php?OrgDir=${
@@ -22,7 +49,26 @@ export class QuickScoreReq {
     }
   }
 
-  async eventList() {
+  async eventList(): Promise<
+    [
+      {
+        LeagueID: string;
+        EventOrder: string;
+        Season: string;
+        Sport: string;
+        LeagueName: string;
+        PublicStatus: string;
+        ViewScheduleURL: string;
+        PrintScheduleURL: string;
+        MessagePageList: string;
+        ParentLeagueID: string;
+        SubEventTitle: string;
+        SubEventOrder: string;
+        ExternalEventID: string;
+        DayOfWeek: string;
+      }
+    ]
+  > {
     try {
       const response = await axios.get(
         `https://www.quickscores.com/API/EventList.php?OrgDir=${
