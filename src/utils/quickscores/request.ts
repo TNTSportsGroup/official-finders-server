@@ -17,6 +17,21 @@ export interface IEvent {
   DayOfWeek: string;
 }
 
+export interface IGameData {
+  GameID: string;
+  Week: string;
+  DateTime: string;
+  Date: string;
+  Time: string;
+  LocationID: string;
+  LocationName: string;
+  TeamID1: string;
+  TeamID2: string;
+  TeamName1: string;
+  TeamName2: string;
+  PoolName1: string;
+}
+
 export interface ISchedule {
   LeagueID: string;
   ExternalEventID: string;
@@ -57,22 +72,7 @@ export interface ISchedule {
   ];
   LegendText: string;
   LegendLinks: string;
-  RegularGameData: [
-    {
-      GameID: string;
-      Week: string;
-      DateTime: string;
-      Date: string;
-      Time: string;
-      LocationID: string;
-      LocationName: string;
-      TeamID1: string;
-      TeamID2: string;
-      TeamName1: string;
-      TeamName2: string;
-      PoolName1: string;
-    }
-  ];
+  RegularGameData: IGameData[];
 }
 
 export class QuickScoreReq {
