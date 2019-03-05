@@ -1,6 +1,5 @@
 import express from "express";
-
-import { QuickScoreReq } from "../utils/request";
+import { QuickScoreReq } from "../utils/quickscores/request";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
@@ -17,7 +16,7 @@ QsRouter.get("/", async (req, res) => {
 
   const data = await demo.eventList();
   const seasonSchedule = data.filter(item => item.Season === "Winter 2019");
-  const firstLeague = seasonSchedule[4];
+  const firstLeague = seasonSchedule[0];
 
   let gamesForLeague = await demo.scheduleInfo(firstLeague.LeagueID);
   const gameData = gamesForLeague.RegularGameData.filter(
@@ -25,6 +24,6 @@ QsRouter.get("/", async (req, res) => {
   );
 
   res.send({
-    data: seasonSchedule
+    data: firstLeague
   });
 });
