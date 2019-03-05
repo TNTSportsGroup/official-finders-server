@@ -1,5 +1,5 @@
 import express from "express";
-import { QuickScoreReq, IEvent } from "../utils/quickscores/request";
+import { QuickScoreReq, IEvent, IGameData } from "../utils/quickscores/request";
 import { filterBy } from "../utils/quickscores/filterBy";
 
 const QUICKSCOREDIR = {
@@ -10,6 +10,8 @@ const QUICKSCOREDIR = {
 const filterBySeason = filterBy<IEvent>(
   league => league.Season === "Winter 2019"
 );
+
+const filterByDate = filterBy<IGameData>(game => game.Date >= "2019-03-04");
 
 export const QsRouter = express.Router();
 
@@ -31,7 +33,7 @@ QsRouter.get("/", async (req, res) => {
     let { RegularGameData, LeagueName } = await demo.scheduleInfo(
       league.LeagueID
     );
-    let newData = RegularGameData.filter(game => game.Date >= "2019-03-04");
+    let newData = filterByDate(RegularGameData);
 
     newData.forEach(game => {
       upcomingGames[league.LeagueID].push({
