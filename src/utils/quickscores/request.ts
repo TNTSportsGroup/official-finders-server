@@ -128,7 +128,7 @@ export class QuickScoreReq {
       {
         GameID: string;
         Week: string;
-        DatTime: string;
+        DateTime: string;
         Date: string;
         Time: string;
         LocationID: string;
