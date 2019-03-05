@@ -1,11 +1,13 @@
 import express from "express";
 import { QuickScoreReq } from "../utils/quickscores/request";
-import { filterBySeason } from "../utils/quickscores/filterBySeason";
+import { filterBy } from "../utils/quickscores/filterBy";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
   GLEN_ELLYN_YOUTH_BASEBALL: "geyba"
 };
+
+const filterBySeason = filterBy(league => league.Season === "Winter 2019");
 
 export const QsRouter = express.Router();
 
@@ -17,7 +19,8 @@ QsRouter.get("/", async (req, res) => {
   // Get event list
   const data = await demo.eventList();
   // filter by the season
-  const seasonSchedule = filterBySeason(data, "Winter 2019");
+
+  const seasonSchedule = filterBySeason(data);
   let upcomingGames = {};
 
   for (let league of seasonSchedule) {
