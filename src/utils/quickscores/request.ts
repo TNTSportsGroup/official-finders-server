@@ -134,7 +134,7 @@ export class QuickScoreReq {
 
       return response.data;
     } catch (error) {
-      console.error(error);
+      console.error(`${error.response.data}, error with ${this.orgDir}`);
     }
   }
 
