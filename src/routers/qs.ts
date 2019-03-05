@@ -1,5 +1,6 @@
 import express from "express";
 import { QuickScoreReq } from "../utils/quickscores/request";
+import { filterBySeason } from "../utils/quickscores/filterBySeason";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
@@ -16,7 +17,7 @@ QsRouter.get("/", async (req, res) => {
   // Get event list
   const data = await demo.eventList();
   // filter by the season
-  const seasonSchedule = data.filter(item => item.Season === "Winter 2019");
+  const seasonSchedule = filterBySeason(data, "Winter 2019");
   let upcomingGames = {};
 
   for (let league of seasonSchedule) {
