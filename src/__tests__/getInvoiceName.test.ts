@@ -1,4 +1,4 @@
-import { getInvoiceName } from "../utils/getInvoiceName";
+import { getInvoiceName } from "../utils/invoices/getInvoiceName";
 
 describe("getInvoiceName", () => {
   test("single parenthesis", () => {

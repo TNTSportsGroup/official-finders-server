@@ -1,4 +1,4 @@
-import { removeParenthesis } from "./removeParenthesis";
+import { removeParenthesis } from "../removeParenthesis";
 
 export const getInvoiceName = (name: string) => {
   const reg = /\([a-zA-Z | \s | \D]*\)/g;

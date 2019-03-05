@@ -1,6 +1,6 @@
-import { IGameInvoice } from "./scrape/scrapeHwrInvoices";
+import { IGameInvoice } from "./scrapeHwrInvoices";
 import { getInvoiceName } from "./getInvoiceName";
-import { convertToSummableValue } from "./convertToSummableValue";
+import { convertToSummableValue } from "../convertToSummableValue";
 
 interface InvoiceObj {
   [key: string]: {

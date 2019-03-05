@@ -1,5 +1,5 @@
-import { isNegative } from "./isNegative";
-import { reverseName } from "./reverseName";
+import { isNegative } from "../isNegative";
+import { reverseName } from "../reverseName";
 import { sortByFirstName } from "./sortByFirstName";
 
 interface UserData {

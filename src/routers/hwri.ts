@@ -3,9 +3,12 @@ import fs from "fs";
 import child_process from "child_process";
 import express from "express";
 
-import { scrapeHwrInvoices } from "../utils/scrape/scrapeHwrInvoices";
-import { createInvoiceObj, getCompleteTotal } from "../utils/createInvoiceObj";
-import { createInvoiceCsvs } from "../utils/createInvoiceCsv";
+import { scrapeHwrInvoices } from "../utils/invoices/scrapeHwrInvoices";
+import {
+  createInvoiceObj,
+  getCompleteTotal
+} from "../utils/invoices/createInvoiceObj";
+import { createInvoiceCsvs } from "../utils/invoices/createInvoiceCsv";
 
 export const hwriRouter = express.Router();
 

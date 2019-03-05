@@ -1,4 +1,4 @@
-import { User } from "./scrape/scrapeHwrp";
+import { User } from "./scrapeHwrp";
 
 export const sortByFirstName = (data: User[]) => {
   return data.sort((a, b) => {
