@@ -9,7 +9,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "clean:invoices": "rimraf ./src/csvs/invoices/*",
-    "clean:payrolls": "rimraf ./src/csvs/payroll/*"
+    "clean:payrolls": "rimraf ./src/csvs/payroll/*",
+    "build": "rimraf build && tsc"
   },
   "dependencies": {
     "archiver": "^3.0.0",
