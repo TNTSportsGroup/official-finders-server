@@ -1,5 +1,80 @@
 import axios from "axios";
 
+interface IEvent {
+  LeagueID: string;
+  EventOrder: string;
+  Season: string;
+  Sport: string;
+  LeagueName: string;
+  PublicStatus: string;
+  ViewScheduleURL: string;
+  PrintScheduleURL: string;
+  MessagePageList: string;
+  ParentLeagueID: string;
+  SubEventTitle: string;
+  SubEventOrder: string;
+  ExternalEventID: string;
+  DayOfWeek: string;
+}
+
+interface ISchedule {
+  LeagueID: string;
+  ExternalEventID: string;
+  LeagueName: string;
+  SportName: string;
+  SeasonName: string;
+  PublicStatus: "Hidden" | "Public";
+  MainLeagueContact: string;
+  LeagueMessage: string;
+  MessageBgColor: string;
+  MessagePageList: string;
+  TeamLabel1: string;
+  TeamLabel2: string;
+  ViewScheduleURL: string;
+  PrintScheduleURL: string;
+  StandingsData: [
+    {
+      Rank: string;
+      TeamID: string;
+      TeamName: string;
+      Subtitle: string;
+      Wins: string;
+      Losses: string;
+      PoolName: string;
+      TotalGamesPlayed: string;
+      Ties: string;
+      OTWins: string;
+      OTLosses: string;
+      OTTies: string;
+      TieBreakers: {
+        [key: string]: {
+          ShortName: string;
+          LongName: string;
+          Value: string;
+        };
+      };
+    }
+  ];
+  LegendText: string;
+  LegendLinks: string;
+  RegularGameData: [
+    {
+      GameID: string;
+      Week: string;
+      DateTime: string;
+      Date: string;
+      Time: string;
+      LocationID: string;
+      LocationName: string;
+      TeamID1: string;
+      TeamID2: string;
+      TeamName1: string;
+      TeamName2: string;
+      PoolName1: string;
+    }
+  ];
+}
+
 export class QuickScoreReq {
   private orgDir: string;
   private authToken: string;
@@ -49,26 +124,7 @@ export class QuickScoreReq {
     }
   }
 
-  async eventList(): Promise<
-    [
-      {
-        LeagueID: string;
-        EventOrder: string;
-        Season: string;
-        Sport: string;
-        LeagueName: string;
-        PublicStatus: string;
-        ViewScheduleURL: string;
-        PrintScheduleURL: string;
-        MessagePageList: string;
-        ParentLeagueID: string;
-        SubEventTitle: string;
-        SubEventOrder: string;
-        ExternalEventID: string;
-        DayOfWeek: string;
-      }
-    ]
-  > {
+  async eventList(): Promise<IEvent[]> {
     try {
       const response = await axios.get(
         `https://www.quickscores.com/API/EventList.php?OrgDir=${
@@ -82,65 +138,7 @@ export class QuickScoreReq {
     }
   }
 
-  async scheduleInfo(
-    leagueID: string
-  ): Promise<{
-    LeagueID: string;
-    ExternalEventID: string;
-    LeagueName: string;
-    SportName: string;
-    SeasonName: string;
-    PublicStatus: "Hidden" | "Public";
-    MainLeagueContact: string;
-    LeagueMessage: string;
-    MessageBgColor: string;
-    MessagePageList: string;
-    TeamLabel1: string;
-    TeamLabel2: string;
-    ViewScheduleURL: string;
-    PrintScheduleURL: string;
-    StandingsData: [
-      {
-        Rank: string;
-        TeamID: string;
-        TeamName: string;
-        Subtitle: string;
-        Wins: string;
-        Losses: string;
-        PoolName: string;
-        TotalGamesPlayed: string;
-        Ties: string;
-        OTWins: string;
-        OTLosses: string;
-        OTTies: string;
-        TieBreakers: {
-          [key: string]: {
-            ShortName: string;
-            LongName: string;
-            Value: string;
-          };
-        };
-      }
-    ];
-    LegendText: string;
-    LegendLinks: string;
-    RegularGameData: [
-      {
-        GameID: string;
-        Week: string;
-        DateTime: string;
-        Date: string;
-        Time: string;
-        LocationID: string;
-        LocationName: string;
-        TeamID1: string;
-        TeamID2: string;
-        TeamName1: string;
-        TeamName2: string;
-        PoolName1: string;
-      }
-    ];
-  }> {
+  async scheduleInfo(leagueID: string): Promise<ISchedule> {
     try {
       const response = await axios.get(
         `http://www.quickscores.com/API/ScheduleInfo.php?OrgDir=${
