@@ -82,7 +82,65 @@ export class QuickScoreReq {
     }
   }
 
-  async scheduleInfo(leagueID: string) {
+  async scheduleInfo(
+    leagueID: string
+  ): Promise<{
+    LeagueID: string;
+    ExternalEventID: string;
+    LeagueName: string;
+    SportName: string;
+    SeasonName: string;
+    PublicStatus: "Hidden" | "Public";
+    MainLeagueContact: string;
+    LeagueMessage: string;
+    MessageBgColor: string;
+    MessagePageList: string;
+    TeamLabel1: string;
+    TeamLabel2: string;
+    ViewScheduleURL: string;
+    PrintScheduleURL: string;
+    StandingsData: [
+      {
+        Rank: string;
+        TeamID: string;
+        TeamName: string;
+        Subtitle: string;
+        Wins: string;
+        Losses: string;
+        PoolName: string;
+        TotalGamesPlayed: string;
+        Ties: string;
+        OTWins: string;
+        OTLosses: string;
+        OTTies: string;
+        TieBreakers: {
+          [key: string]: {
+            ShortName: string;
+            LongName: string;
+            Value: string;
+          };
+        };
+      }
+    ];
+    LegendText: string;
+    LegendLinks: string;
+    RegularGameData: [
+      {
+        GameID: string;
+        Week: string;
+        DatTime: string;
+        Date: string;
+        Time: string;
+        LocationID: string;
+        LocationName: string;
+        TeamID1: string;
+        TeamID2: string;
+        TeamName1: string;
+        TeamName2: string;
+        PoolName1: string;
+      }
+    ];
+  }> {
     try {
       const response = await axios.get(
         `http://www.quickscores.com/API/ScheduleInfo.php?OrgDir=${
