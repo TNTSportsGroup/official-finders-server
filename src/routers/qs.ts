@@ -1,6 +1,7 @@
 import express from "express";
 import { QuickScoreReq, IEvent, IGameData } from "../utils/quickscores/request";
 import { filterBy } from "../utils/quickscores/filterBy";
+import { writeObjectToFile } from "../utils/quickscores/writeObjectToFile";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
@@ -33,6 +34,7 @@ QsRouter.get("/", async (req, res) => {
     let { RegularGameData, LeagueName } = await demo.scheduleInfo(
       league.LeagueID
     );
+
     let newData = filterByDate(RegularGameData);
 
     newData.forEach(game => {
@@ -42,11 +44,13 @@ QsRouter.get("/", async (req, res) => {
         Date: game.Date,
         Time: game.Time,
         LocationName: game.LocationName,
-        TeamName1: game.TeamName1,
-        TeamName2: game.TeamName2
+        HomeTeam: game.TeamName1,
+        AwayTeam: game.TeamName2
       });
     });
   }
+
+  writeObjectToFile(upcomingGames);
 
   res.send({
     data: upcomingGames
