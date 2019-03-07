@@ -1,7 +1,10 @@
 import express from "express";
-import { QuickScoreReq, IEvent, IGameData } from "../utils/quickscores/request";
 import { filterBy } from "../utils/quickscores/filterBy";
+<<<<<<< HEAD
 import { writeObjectToFile } from "../utils/quickscores/writeObjectToFile";
+=======
+import { IEvent, IGameData, QuickScoreReq } from "../utils/quickscores/request";
+>>>>>>> e5e3a4673d130356d958c1c964d4cea475366063
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
