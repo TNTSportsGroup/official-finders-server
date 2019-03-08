@@ -17,7 +17,7 @@ interface IGame {
   AwayTeam: string;
 }
 
-interface ILeagueTable {
+export interface ILeagueTable {
   [key: string]: IGame[];
 }
 
