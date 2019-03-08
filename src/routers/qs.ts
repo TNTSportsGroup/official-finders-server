@@ -17,6 +17,10 @@ interface IGame {
   AwayTeam: string;
 }
 
+interface ILeagueTable {
+  [key: string]: IGame[];
+}
+
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
   GLEN_ELLYN_YOUTH_BASEBALL: "geyba"
@@ -40,9 +44,7 @@ QsRouter.get("/", async (req, res) => {
   // filter by the season
 
   const seasonSchedule = filterBySeason(data);
-  let upcomingGames: {
-    [key: string]: IGame[];
-  } = {};
+  let upcomingGames: ILeagueTable = {};
 
   for (let league of seasonSchedule) {
     upcomingGames[league.LeagueID] = [];
