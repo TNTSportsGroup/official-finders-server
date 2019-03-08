@@ -97,7 +97,9 @@ QsRouter.get("/", async (req, res) => {
     }
   ];
 
-  createNewGamesCsv(headers, newGames);
+  if (newGames) {
+    const newGameFileName = createNewGamesCsv(headers, newGames);
+  }
 
   writeObjWithRedis("Winter 2019", upcomingGames);
 
