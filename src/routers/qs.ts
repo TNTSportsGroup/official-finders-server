@@ -56,18 +56,15 @@ QsRouter.get("/", async (req, res) => {
     });
   }
 
-  const { differentRecords, newGames } = compareQuickScoreData(
-    oldData,
+  const { differentRecords, newGames } = await compareQuickScoreData(
+    "Winter 2019",
     upcomingGames
   );
-  await writeObjWithRedis(upcomingGames);
-  const newData = await getObjWithRedis();
 
-  console.log(newGames);
-
-  // writeObjectToFile(upcomingGames);
+  writeObjWithRedis("Winter 2019", upcomingGames);
 
   res.send({
-    data: upcomingGames
+    data: newGames,
+    differentRecords
   });
 });
