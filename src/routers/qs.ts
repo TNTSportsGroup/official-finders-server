@@ -7,7 +7,7 @@ import {
   getObjWithRedis
 } from "../utils/quickscores/usingRedis";
 
-interface IGame {
+export interface IGame {
   GameID: string;
   LeagueName: string;
   Date: string;
