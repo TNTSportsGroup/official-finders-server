@@ -1,7 +1,13 @@
 import express from "express";
 import { filterBy } from "../utils/quickscores/filterBy";
+const oldData = require("../data/quickScoreData").default;
 import { writeObjectToFile } from "../utils/quickscores/writeObjectToFile";
 import { IEvent, IGameData, QuickScoreReq } from "../utils/quickscores/request";
+import { compareQuickScoreData } from "../utils/quickscores/compareQuickScoreData";
+import {
+  writeObjWithRedis,
+  getObjWithRedis
+} from "../utils/quickscores/usingRedis";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
@@ -50,7 +56,13 @@ QsRouter.get("/", async (req, res) => {
     });
   }
 
-  writeObjectToFile(upcomingGames);
+  const scheduleChanges = compareQuickScoreData(oldData, upcomingGames);
+  await writeObjWithRedis(upcomingGames);
+  const newData = await getObjWithRedis();
+
+  console.log(newData);
+
+  // writeObjectToFile(upcomingGames);
 
   res.send({
     data: upcomingGames
