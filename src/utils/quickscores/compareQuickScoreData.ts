@@ -1,8 +1,20 @@
 import { isEqual } from "lodash";
+import { getObjWithRedis } from "./usingRedis";
 
-export const compareQuickScoreData = (previousData: any, currentData: any) => {
+export const compareQuickScoreData = async (
+  season: string,
+  currentData: any
+) => {
   let differentRecords = [];
   let newGames = [];
+
+  const previousData = await getObjWithRedis(season);
+  if (!previousData) {
+    return {
+      newGames: currentData,
+      differentRecords: []
+    };
+  }
 
   const currentDataLeagues = Object.keys(currentData);
 
