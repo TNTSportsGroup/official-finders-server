@@ -6,6 +6,7 @@ import {
   writeObjWithRedis,
   getObjWithRedis
 } from "../utils/quickscores/usingRedis";
+import { createNewGamesCsv } from "../utils/quickscores/createNewGamesCsv";
 
 export interface IGame {
   GameID: string;
@@ -72,6 +73,31 @@ QsRouter.get("/", async (req, res) => {
     "Winter 2019",
     upcomingGames
   );
+
+  const headers = [
+    {
+      id: "Date",
+      title: "Game Date"
+    },
+    {
+      id: "Time",
+      title: "Game Time"
+    },
+    {
+      id: "HomeTeam",
+      title: "Home Team"
+    },
+    {
+      id: "AwayTeam",
+      title: "Away Team"
+    },
+    {
+      id: "LocationName",
+      title: "Facility"
+    }
+  ];
+
+  createNewGamesCsv(headers, newGames);
 
   writeObjWithRedis("Winter 2019", upcomingGames);
 
