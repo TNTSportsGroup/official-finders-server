@@ -1,13 +1,21 @@
 import express from "express";
 import { filterBy } from "../utils/quickscores/filterBy";
-const oldData = require("../data/quickScoreData").default;
-import { writeObjectToFile } from "../utils/quickscores/writeObjectToFile";
 import { IEvent, IGameData, QuickScoreReq } from "../utils/quickscores/request";
 import { compareQuickScoreData } from "../utils/quickscores/compareQuickScoreData";
 import {
   writeObjWithRedis,
   getObjWithRedis
 } from "../utils/quickscores/usingRedis";
+
+interface IGame {
+  GameID: string;
+  LeagueName: string;
+  Date: string;
+  Time: string;
+  LocationName: string;
+  HomeTeam: string;
+  AwayTeam: string;
+}
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
@@ -32,7 +40,9 @@ QsRouter.get("/", async (req, res) => {
   // filter by the season
 
   const seasonSchedule = filterBySeason(data);
-  let upcomingGames = {};
+  let upcomingGames: {
+    [key: string]: IGame[];
+  } = {};
 
   for (let league of seasonSchedule) {
     upcomingGames[league.LeagueID] = [];
