@@ -7,10 +7,7 @@ export interface Header {
   title: string;
 }
 
-export const createGamesCsv = (type: string) => (
-  headers: Header[],
-  records: any
-) => {
+const createGamesCsv = (type: string) => (headers: Header[], records: any) => {
   const name = `${shortid.generate()}.csv`;
 
   const csvWriter = createCsvWriter({
@@ -29,3 +26,6 @@ export const createGamesCsv = (type: string) => (
 
   return name;
 };
+
+export const createNewGamesCsv = createGamesCsv("new-games");
+export const createUpdatedGamesCsv = createGamesCsv("updated-games");
