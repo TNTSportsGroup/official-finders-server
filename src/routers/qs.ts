@@ -6,6 +6,8 @@ import {
   createNewGamesCsv,
   createUpdatedGamesCsv
 } from "../utils/quickscores/createGamesCsv";
+import { matchSeasonAndYear } from "../utils/quickscores/matchSeasonAndYear";
+import { writeObjWithRedis } from "../utils/quickscores/usingRedis";
 
 export interface IGame {
   GameID: string;
@@ -26,11 +28,13 @@ const QUICKSCOREDIR = {
   GLEN_ELLYN_YOUTH_BASEBALL: "geyba"
 };
 
+const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
+
 const filterBySeason = filterBy<IEvent>(
-  league => league.Season === "Winter 2019"
+  league => !!seasonToFilterBy(league.Season)
 );
 
-const filterByDate = filterBy<IGameData>(game => game.Date >= "2019-03-04");
+const filterByDate = filterBy<IGameData>(game => game.Date >= "2019-03-06");
 
 export const QsRouter = express.Router();
 
@@ -104,7 +108,7 @@ QsRouter.get("/", async (req, res) => {
     const updatedGamesFileName = createUpdatedGamesCsv(headers, updatedGames);
   }
 
-  // writeObjWithRedis("Winter 2019", upcomingGames);
+  writeObjWithRedis("Winter 2019", upcomingGames);
 
   res.send({
     newGames,
