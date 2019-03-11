@@ -6,7 +6,7 @@ export const compareQuickScoreData = async (
   season: string,
   currentData: ILeagueTable
 ) => {
-  let differentRecords = [];
+  let updatedGames = [];
   let newGames: IGame[] = [];
 
   const previousData = await getObjWithRedis(season);
@@ -32,13 +32,10 @@ export const compareQuickScoreData = async (
       if (!oldGameData) {
         newGames.push(game);
       } else if (!isEqual(game, oldGameData)) {
-        differentRecords.push({
-          oldData: oldGameData,
-          new: game
-        });
+        updatedGames.push(game);
       }
     });
   }
 
-  return { differentRecords, newGames };
+  return { updatedGames, newGames };
 };
