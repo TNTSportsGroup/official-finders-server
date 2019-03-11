@@ -69,7 +69,7 @@ QsRouter.get("/", async (req, res) => {
     });
   }
 
-  const { differentRecords, newGames } = await compareQuickScoreData(
+  const { newGames, updatedGames } = await compareQuickScoreData(
     "Winter 2019",
     upcomingGames
   );
@@ -97,14 +97,14 @@ QsRouter.get("/", async (req, res) => {
     }
   ];
 
-  if (newGames) {
-    const newGameFileName = createNewGamesCsv(headers, newGames);
-  }
+  // if (newGames) {
+  //   const newGameFileName = createNewGamesCsv(headers, newGames);
+  // }
 
-  writeObjWithRedis("Winter 2019", upcomingGames);
+  // writeObjWithRedis("Winter 2019", upcomingGames);
 
   res.send({
-    data: newGames,
-    differentRecords
+    newGames,
+    updatedGames
   });
 });
