@@ -32,7 +32,9 @@ const createGamesCsv = (type: string) => (
   return name;
 };
 
-export const createNewGamesCsv = createGamesCsv("new-games");
+export const createNewGamesCsv = createGamesCsv(
+  `${dayjs().format("MM-DD-YY")}-new-games`
+);
 export const createUpdatedGamesCsv = createGamesCsv(
   `${dayjs().format("MM-DD-YY")}-updated-games`
 );
