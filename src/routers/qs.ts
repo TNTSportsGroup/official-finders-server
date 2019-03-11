@@ -3,11 +3,9 @@ import { filterBy } from "../utils/quickscores/filterBy";
 import { IEvent, IGameData, QuickScoreReq } from "../utils/quickscores/request";
 import { compareQuickScoreData } from "../utils/quickscores/compareQuickScoreData";
 import {
-  writeObjWithRedis,
-  getObjWithRedis
-} from "../utils/quickscores/usingRedis";
-import { createNewGamesCsv } from "../utils/quickscores/createNewGamesCsv";
-import { createUpdatedGamesCsv } from "../utils/quickscores/createUpdatedGamesCsv";
+  createNewGamesCsv,
+  createUpdatedGamesCsv
+} from "../utils/quickscores/createGamesCsv";
 
 export interface IGame {
   GameID: string;
