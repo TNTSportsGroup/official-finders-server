@@ -17,7 +17,7 @@ export const compareQuickScoreData = async (
     }, []);
     return {
       newGames,
-      differentRecords: []
+      updatedGames: []
     };
   }
 
