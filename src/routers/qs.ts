@@ -100,11 +100,11 @@ QsRouter.get("/", async (req, res) => {
     }
   ];
 
-  if (newGames) {
+  if (newGames.length > 0) {
     const newGameFileName = createNewGamesCsv(headers, newGames);
   }
 
-  if (updatedGames) {
+  if (updatedGames.length > 0) {
     const updatedGamesFileName = createUpdatedGamesCsv(headers, updatedGames);
   }
 
