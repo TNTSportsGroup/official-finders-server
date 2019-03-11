@@ -100,18 +100,24 @@ QsRouter.get("/", async (req, res) => {
     }
   ];
 
+  let responseObject = {
+    newGames,
+    updatedGames,
+    newGamesFileName: "",
+    updatedGamesFileName: ""
+  };
+
   if (newGames.length > 0) {
-    const newGameFileName = createNewGamesCsv(headers, newGames);
+    const newGamesFileName = createNewGamesCsv(headers, newGames);
+    responseObject.newGamesFileName = newGamesFileName;
   }
 
   if (updatedGames.length > 0) {
     const updatedGamesFileName = createUpdatedGamesCsv(headers, updatedGames);
+    responseObject.updatedGamesFileName = updatedGamesFileName;
   }
 
   writeObjWithRedis("Winter 2019", upcomingGames);
 
-  res.send({
-    newGames,
-    updatedGames
-  });
+  res.send(responseObject);
 });
