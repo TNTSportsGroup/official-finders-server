@@ -1,13 +1,17 @@
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 import * as shortid from "shortid";
 import path from "path";
+import { IGame } from "../../routers/qs";
 
 export interface Header {
   id: string;
   title: string;
 }
 
-const createGamesCsv = (type: string) => (headers: Header[], records: any) => {
+const createGamesCsv = (type: string) => (
+  headers: Header[],
+  records: IGame[]
+) => {
   const name = `${shortid.generate()}.csv`;
 
   const csvWriter = createCsvWriter({
