@@ -1,6 +1,7 @@
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 import * as shortid from "shortid";
 import path from "path";
+import dayjs from "dayjs";
 import { IGame } from "../../routers/qs";
 
 export interface Header {
@@ -32,4 +33,6 @@ const createGamesCsv = (type: string) => (
 };
 
 export const createNewGamesCsv = createGamesCsv("new-games");
-export const createUpdatedGamesCsv = createGamesCsv("updated-games");
+export const createUpdatedGamesCsv = createGamesCsv(
+  `${dayjs().format("MM-DD-YY")}-updated-games`
+);
