@@ -6,11 +6,11 @@ export const compareQuickScoreData = async (
   season: string,
   currentData: ILeagueTable
 ) => {
-  let updatedGames = [];
+  let updatedGames: IGame[] = [];
   let newGames: IGame[] = [];
 
   const previousData = await getObjWithRedis(season);
-  // TODO transform the currentData to an array of games.
+
   if (!previousData) {
     newGames = Object.keys(currentData).reduce((prev, key) => {
       return [...prev, ...currentData[key]];
