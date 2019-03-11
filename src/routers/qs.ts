@@ -7,6 +7,7 @@ import {
   getObjWithRedis
 } from "../utils/quickscores/usingRedis";
 import { createNewGamesCsv } from "../utils/quickscores/createNewGamesCsv";
+import { createUpdatedGamesCsv } from "../utils/quickscores/createUpdatedGamesCsv";
 
 export interface IGame {
   GameID: string;
@@ -97,9 +98,13 @@ QsRouter.get("/", async (req, res) => {
     }
   ];
 
-  // if (newGames) {
-  //   const newGameFileName = createNewGamesCsv(headers, newGames);
-  // }
+  if (newGames) {
+    const newGameFileName = createNewGamesCsv(headers, newGames);
+  }
+
+  if (updatedGames) {
+    const updatedGamesFileName = createUpdatedGamesCsv(headers, updatedGames);
+  }
 
   // writeObjWithRedis("Winter 2019", upcomingGames);
 
