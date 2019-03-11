@@ -25,7 +25,11 @@ export interface ILeagueTable {
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
-  GLEN_ELLYN_YOUTH_BASEBALL: "geyba"
+  GLEN_ELLYN_YOUTH_BASEBALL: "geyba",
+  GENEVA_PARK_DISTRICT: "genevaparks",
+  GIRLS: "girls",
+  WHEATON_PARK_DISTRICT: "wheaton",
+  CAROL_STREAM_PARK_DISTRICT: "csparks"
 };
 
 const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
@@ -45,6 +49,9 @@ QsRouter.get("/", async (req, res) => {
   );
   // Get event list
   const data = await demo.eventList();
+
+  // TODO if carol stream only gt soccer volleyball hockey dodgeball
+  console.log(data);
   // filter by the season
 
   const seasonSchedule = filterBySeason(data);
