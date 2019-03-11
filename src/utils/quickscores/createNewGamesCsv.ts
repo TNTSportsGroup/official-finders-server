@@ -11,7 +11,7 @@ export const createNewGamesCsv = (headers: Header[], records: any) => {
   const name = `${shortid.generate()}.csv`;
 
   const csvWriter = createCsvWriter({
-    path: path.resolve(__dirname + `/../../csvs/quickscores/${name}`),
+    path: path.resolve(__dirname + `/../../csvs/quickscores/new-games-${name}`),
     header: headers
   });
 
