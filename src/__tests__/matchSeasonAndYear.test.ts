@@ -16,6 +16,4 @@ describe("matchSeasonAndYear", () => {
     expect(matchSpring("Winter 2018-2019")).toBe("Winter 2018-2019");
     expect(matchSpring("Winter 2019-2020")).toBe("Winter 2019-2020");
   });
-
-  //   test("checks positives", () => {});
 });
