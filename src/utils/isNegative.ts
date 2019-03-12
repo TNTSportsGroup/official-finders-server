@@ -5,5 +5,6 @@ export const isNegative = (amount: string) => {
 
   const result = amount.match(regex);
 
+  // turned the result into a boolean value.
   return !!result;
 };
