@@ -13,10 +13,10 @@ const createGamesCsv = (type: string) => (
   headers: Header[],
   records: IGame[]
 ) => {
-  const name = `${shortid.generate()}.csv`;
+  const name = `${type}-${shortid.generate()}.csv`;
 
   const csvWriter = createCsvWriter({
-    path: path.resolve(__dirname + `/../../csvs/quickscores/${type}-${name}`),
+    path: path.resolve(__dirname + `/../../csvs/quickscores/${name}`),
     header: headers
   });
 
