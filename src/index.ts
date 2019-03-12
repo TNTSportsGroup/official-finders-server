@@ -5,6 +5,7 @@ import { hwrpRouter } from "./routers/hwrp";
 import fileUpload from "express-fileupload";
 import { hwriRouter } from "./routers/hwri";
 import { QsRouter } from "./routers/qs";
+import { makeCsvDirectories } from "./utils/makeCsvDirectories";
 
 const port = 3000;
 
@@ -22,6 +23,7 @@ app.use("/hwrp", hwrpRouter);
 app.use("/hwri", hwriRouter);
 app.use("/qs", QsRouter);
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`server is running on http://localhost:${port}`);
+  await makeCsvDirectories();
 });
