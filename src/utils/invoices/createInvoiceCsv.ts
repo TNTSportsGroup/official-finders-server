@@ -3,7 +3,6 @@ import * as shortid from "shortid";
 import fs from "fs";
 import path from "path";
 import { Header } from "../payroll/createPayrollCsv";
-import { IGameInvoice } from "./scrapeHwrInvoices";
 
 export const createInvoiceCsvs = (headers: Header[], records) => {
   const folderName = shortid.generate();
