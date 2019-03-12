@@ -35,6 +35,8 @@ const QUICKSCOREDIR = {
 const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
 
 const filterBySeason = filterBy<IEvent>(
+  // convert our response to a boolean,
+  // a boolean is what the array.filter expects.
   league => !!seasonToFilterBy(league.Season)
 );
 
@@ -51,7 +53,7 @@ QsRouter.get("/", async (req, res) => {
   const data = await demo.eventList();
 
   // TODO if carol stream only gt soccer volleyball hockey dodgeball
-  console.log(data);
+
   // filter by the season
 
   const seasonSchedule = filterBySeason(data);
@@ -116,6 +118,7 @@ QsRouter.get("/", async (req, res) => {
 
   if (newGames.length > 0) {
     const newGamesFileName = createNewGamesCsv(headers, newGames);
+    console.log(newGamesFileName);
     responseObject.newGamesFileName = newGamesFileName;
   }
 
@@ -124,7 +127,7 @@ QsRouter.get("/", async (req, res) => {
     responseObject.updatedGamesFileName = updatedGamesFileName;
   }
 
-  writeObjWithRedis("Winter 2019", upcomingGames);
+  // writeObjWithRedis("Winter 2019", upcomingGames);
 
   res.send(responseObject);
 });
