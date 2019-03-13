@@ -32,13 +32,13 @@ const QUICKSCOREDIR = {
   CAROL_STREAM_PARK_DISTRICT: "csparks"
 };
 
-const seasonToFilterBy = matchSeasonAndYear("Spring", 2019);
+const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
 
-const filterBySeason = filterBy<IEvent>(
-  league => seasonToFilterBy(league.Season) === true
+const filterByLeagueSeason = filterBy<IEvent>(league =>
+  seasonToFilterBy(league.Season)
 );
 
-const filterByDate = filterBy<IGameData>(game => game.Date >= "2019-03-06");
+const filterByDate = filterBy<IGameData>(game => game.Date >= "2019-03-13");
 
 export const QsRouter = express.Router();
 
@@ -50,11 +50,11 @@ QsRouter.get("/", async (req, res) => {
   // Get event list
   const data = await demo.eventList();
 
-  // TODO if carol stream only gt soccer volleyball hockey dodgeball
+  // TODO if carol stream only get soccer volleyball hockey dodgeball
 
   // filter by the season
 
-  const seasonSchedule = data.filter(x => seasonToFilterBy(x.Season));
+  const seasonSchedule = filterByLeagueSeason(data);
 
   let upcomingGames: ILeagueTable = {};
 
