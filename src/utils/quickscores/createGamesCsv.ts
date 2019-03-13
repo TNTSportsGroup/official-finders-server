@@ -2,7 +2,7 @@ const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 import * as shortid from "shortid";
 import path from "path";
 import dayjs from "dayjs";
-import { IGame } from "../../routers/qs";
+import { IGame } from "./types";
 
 export interface Header {
   id: string;
