@@ -25,5 +25,9 @@ const port = 3000;
 
 app.listen(port, async () => {
   console.log(`server is running on http://localhost:${port}`);
-  await makeCsvDirectories();
+  try {
+    await makeCsvDirectories();
+  } catch (e) {
+    console.log(e);
+  }
 });
