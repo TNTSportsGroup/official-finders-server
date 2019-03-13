@@ -26,7 +26,8 @@
     "ioredis": "^4.6.2",
     "lodash": "^4.17.11",
     "rimraf": "^2.6.3",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "typeorm": "^0.2.15-rc.2"
   },
   "devDependencies": {
     "@types/archiver": "^2.1.2",
