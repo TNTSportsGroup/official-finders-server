@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
 import { getObjWithRedis } from "./usingRedis";
-import { ILeagueTable, IGame } from "../../routers/qs";
+import { ILeagueTable, IGame } from "./types";
 
 export const compareQuickScoreData = async (
   season: string,
