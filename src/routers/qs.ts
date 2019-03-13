@@ -1,12 +1,10 @@
 import express from "express";
-import { filterBy } from "../utils/quickscores/filterBy";
-import { IEvent, IGameData, QuickScoreReq } from "../utils/quickscores/request";
 import { compareQuickScoreData } from "../utils/quickscores/compareQuickScoreData";
 import {
   createNewGamesCsv,
   createUpdatedGamesCsv
 } from "../utils/quickscores/createGamesCsv";
-import { matchSeasonAndYear } from "../utils/quickscores/matchSeasonAndYear";
+
 import { writeObjWithRedis } from "../utils/quickscores/usingRedis";
 import { getUpcomingGames } from "../utils/quickscores/getUpcomingGames";
 
