@@ -32,12 +32,10 @@ const QUICKSCOREDIR = {
   CAROL_STREAM_PARK_DISTRICT: "csparks"
 };
 
-const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
+const seasonToFilterBy = matchSeasonAndYear("Spring", 2019);
 
 const filterBySeason = filterBy<IEvent>(
-  // convert our response to a boolean,
-  // a boolean is what the array.filter expects.
-  league => !!seasonToFilterBy(league.Season)
+  league => seasonToFilterBy(league.Season) === true
 );
 
 const filterByDate = filterBy<IGameData>(game => game.Date >= "2019-03-06");
@@ -56,7 +54,8 @@ QsRouter.get("/", async (req, res) => {
 
   // filter by the season
 
-  const seasonSchedule = filterBySeason(data);
+  const seasonSchedule = data.filter(x => seasonToFilterBy(x.Season));
+
   let upcomingGames: ILeagueTable = {};
 
   for (let league of seasonSchedule) {
@@ -118,7 +117,7 @@ QsRouter.get("/", async (req, res) => {
 
   if (newGames.length > 0) {
     const newGamesFileName = createNewGamesCsv(headers, newGames);
-    console.log(newGamesFileName);
+
     responseObject.newGamesFileName = newGamesFileName;
   }
 
