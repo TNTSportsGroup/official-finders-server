@@ -6,14 +6,15 @@ export const matchSeasonAndYear = (season: string, year: number) => (
   const seasonRegularExpression = new RegExp(regxp, "g");
 
   const matches = str.match(seasonRegularExpression);
-  console.log(matches);
 
-  if (!matches) {
-    return false;
-  }
+  return !!matches;
 
-  if (matches.length > 1) {
-    return true;
-  }
-  return false;
+  // if (matches === null) {
+  //   return false;
+  // }
+
+  // if (matches.length > 1) {
+  //   return true;
+  // }
+  // return false;
 };
