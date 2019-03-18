@@ -32,6 +32,9 @@ export const getLastEntryInSeasonList = async season => {
   return seasonList[0];
 };
 
-export const addDataNameToSeasonList = async (data: string, key: string) => {
-  await redis.lpush(key, data);
+export const addDataNameToSeasonList = async (
+  data: string,
+  seasonName: string
+) => {
+  await redis.lpush(seasonName, data);
 };
