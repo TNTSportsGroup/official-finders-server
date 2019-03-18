@@ -28,7 +28,7 @@ export const getLastEntryInSeasonList = async season => {
   if (!seasonList) {
     return null;
   }
-
+  // redis will push new elements to the head of the list instead of the back.
   return seasonList[0];
 };
 
