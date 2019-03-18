@@ -21,3 +21,17 @@ export const getSeasonList = async (season: string) => {
 
   return completeList;
 };
+
+export const getLastEntryInSeasonList = async season => {
+  const seasonList = await getSeasonList(season);
+
+  if (!seasonList) {
+    return null;
+  }
+
+  return seasonList[0];
+};
+
+export const addDataNameToSeasonList = async (data: string, key: string) => {
+  await redis.lpush(key, data);
+};
