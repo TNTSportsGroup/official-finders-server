@@ -58,7 +58,7 @@ QsRouter.get("/", async (req, res) => {
     responseObject.updatedGamesFileName = updatedGamesFileName;
   }
 
-  // writeObjWithRedis("Winter 2019", upcomingGames);
+  writeObjWithRedis("Winter 2019", upcomingGames);
 
   res.send(responseObject);
 });
