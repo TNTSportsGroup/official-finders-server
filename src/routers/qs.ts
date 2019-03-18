@@ -4,7 +4,6 @@ import {
   createNewGamesCsv,
   createUpdatedGamesCsv
 } from "../utils/quickscores/createGamesCsv";
-
 import { writeObjWithRedis } from "../utils/quickscores/usingRedis";
 import { getUpcomingGames } from "../utils/quickscores/getUpcomingGames";
 
