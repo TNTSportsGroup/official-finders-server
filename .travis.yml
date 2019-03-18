@@ -1,0 +1,10 @@
+sudo: required
+services:
+  - docker
+  - redis-server
+
+before_install:
+  - dokcer build -t datdevboi/official-finders-server -f Dockerfile.dev
+
+script:
+  - docker run datdevboi/official-finders-server npm test -- --coverage
