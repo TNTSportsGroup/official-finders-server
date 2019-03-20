@@ -1,12 +1,9 @@
-import Redis from "ioredis-mock";
 import {
   getSeasonList,
   getLastEntryInSeasonList,
   addDataNameToSeasonList,
   flushall
 } from "../utils/quickscores/redis-controller";
-
-// const redis = new Redis();
 
 beforeEach(() => {
   flushall();
