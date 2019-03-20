@@ -38,3 +38,7 @@ export const addDataNameToSeasonList = async (
 ) => {
   await redis.lpush(seasonName, data);
 };
+
+export const flushall = async () => {
+  await redis.flushall();
+};
