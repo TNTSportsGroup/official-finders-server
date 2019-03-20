@@ -38,6 +38,7 @@
     "@types/jest": "^24.0.6",
     "@types/lodash": "^4.14.122",
     "@types/shortid": "^0.0.29",
+    "ioredis-mock": "^4.8.2",
     "jest": "^24.1.0",
     "nodemon": "^1.18.10",
     "ts-jest": "^24.0.0",
