@@ -8,5 +8,5 @@ before_install:
   # - docker build -t datdevboi/official-finders-server -f Dockerfile.dev .
 
 script:
-  - docker exec -it official-finders-server-test sh && npm run test -- --coverage
-  # - docker run datdevboi/official-finders-server npm run test -- --coverage
+  - docker exec -it official-finders-server-test sh
+  - npm run test -- --coverage
