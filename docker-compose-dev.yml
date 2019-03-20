@@ -16,6 +16,8 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
+    depends_on:
+      - redis
   tests:
     build:
       context: .
