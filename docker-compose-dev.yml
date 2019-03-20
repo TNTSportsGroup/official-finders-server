@@ -24,6 +24,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    container_name: official-finders-server-test
     environment:
       - REDIS_PORT=6379
       - REDIS_HOST=redis
