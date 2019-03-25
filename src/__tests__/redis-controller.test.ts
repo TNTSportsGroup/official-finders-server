@@ -2,12 +2,17 @@ import {
   getSeasonList,
   getLastEntryInSeasonList,
   addDataNameToSeasonList,
-  flushall
+  flushall,
+  closeRedisConnection
 } from "../utils/quickscores/redis-controller";
 
 beforeEach(() => {
-  flushall();
+  return flushall();
 });
+
+afterAll(() => {
+  return closeRedisConnection();
+})
 
 describe("Redis-Controller", () => {
   test("Adding to list", async done => {
