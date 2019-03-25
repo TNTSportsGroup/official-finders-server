@@ -33,6 +33,22 @@ describe("Redis-Controller", () => {
     await addDataNameToSeasonList("winter-2017-Nov-07", "Winter 2017");
     await addDataNameToSeasonList("winter-2017-Nov-08", "Winter 2017");
 
+    const lastItem = await getLastEntryInSeasonList("Winter 2017");
+
+    expect(lastItem).toEqual(
+      "winter-2017-Nov-08",
+      
+    );
+
+   
+    
+  });
+
+  test("get last in list", async () => {
+    await addDataNameToSeasonList("winter-2017-Nov-06", "Winter 2017");
+    await addDataNameToSeasonList("winter-2017-Nov-07", "Winter 2017");
+    await addDataNameToSeasonList("winter-2017-Nov-08", "Winter 2017");
+
     const currentList = await getSeasonList("Winter 2017");
 
     expect(currentList).toEqual([
