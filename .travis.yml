@@ -6,6 +6,7 @@ services:
 before_install:
   #- docker-compose -f docker-compose-dev.yml up -d --build
   #- docker exec -it official-finders-server-test bash
+  # - docker run -d --name redisDev -p 6379:6379 redis
   - docker build -t datdevboi/official-finders-server -f Dockerfile.dev .
 
 # before_script: sudo redis-server /etc/redis/redis.confg --port 6379
@@ -14,5 +15,5 @@ script:
   #- docker container ls
   #- docker exec -it official-finders-server-test bash
   #- docker run officialfindersserver_server npm run test -- --detectOpenHandles --coverage
-  - docker run -e REDIS_PORT=6379 -e REDIS_HOST="localhost" datdevboi/official-finders-server npm run start
+  - docker run -e REDIS_PORT=6379 -e REDIS_HOST=0.0.0.0 datdevboi/official-finders-server npm run start
   # - docker run -e REDIS_PORT=6379 -e REDIS_HOST="localhost" datdevboi/official-finders-server npm run test:ci --detectOpenHandles --coverag
