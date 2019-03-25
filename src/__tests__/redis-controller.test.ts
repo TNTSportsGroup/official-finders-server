@@ -10,8 +10,9 @@ beforeEach(() => {
   return flushall();
 });
 
-afterAll(() => {
-  return closeRedisConnection();
+afterAll(async(done) => {
+  await closeRedisConnection();
+  done()
 })
 
 describe("Redis-Controller", () => {
