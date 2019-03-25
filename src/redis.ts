@@ -3,7 +3,7 @@ import { keys } from "./keys";
 import IORedisMock from 'ioredis-mock'
 
 // made an instance of redis and exported it.
-export let redis;
+export let redis: IORedis.Redis;
 
 
 
@@ -18,5 +18,5 @@ if(process.env.NODE_ENV === "test") {
 }
 
 
-redis.Promise = global.Promise;
+
 
