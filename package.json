@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
     "test": "jest",
-    "test:ci": "jest --coverage",
+    "test:ci": "jest --detectOpenHandles",
     "test:watch": "jest --watch",
     "clean:invoices": "rimraf ./src/csvs/invoices/*",
     "clean:payrolls": "rimraf ./src/csvs/payroll/*",
