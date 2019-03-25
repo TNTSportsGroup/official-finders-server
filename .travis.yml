@@ -4,10 +4,10 @@ services:
   - redis-server
 
 before_install:
-  #- docker-compose -f docker-compose-dev.yml up -d --build
+  - docker-compose -f docker-compose-dev.yml up -d --build
   #- docker exec -it official-finders-server-test bash
-  - docker build -t datdevboi/official-finders-server -f Dockerfile.dev .
+  #- docker build -t datdevboi/official-finders-server -f Dockerfile.dev .
 
 script:
   #- docker exec -it official-finders-server-test bash
-  - docker run datdevboi/official-finders-server --env REDIS_PORT="6379" npm run test -- --coverage
+  - docker run official-finders-server_server npm run test -- --detectOpenHandles --collect-coverage
