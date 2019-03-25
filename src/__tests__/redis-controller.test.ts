@@ -33,5 +33,5 @@ describe("Redis-Controller", () => {
 
     done();
     
-  });
+  }, 50000);
 });
