@@ -1,7 +1,6 @@
 sudo: required
 services:
   - docker
-  - redis-server
 
 before_install:
   #- docker-compose -f docker-compose-dev.yml up -d --build
