@@ -9,6 +9,6 @@ before_install:
   #- docker build -t datdevboi/official-finders-server -f Dockerfile.dev .
 
 script:
-  - docker container ls
+  #- docker container ls
   #- docker exec -it official-finders-server-test bash
-  - docker run official-finders-server_server npm run test -- --detectOpenHandles --collect-coverage
+  - docker run officialfindersserver_server npm run test -- --detectOpenHandles --collect-coverage
