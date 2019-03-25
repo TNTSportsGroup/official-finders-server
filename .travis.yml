@@ -1,12 +1,12 @@
 sudo: required
 services:
   - docker
-  - redis-server
+  #- redis-server
 
 before_install:
   #- docker-compose -f docker-compose-dev.yml up -d --build
   #- docker exec -it official-finders-server-test bash
-  # - docker run -d --name redisDev -p 6379:6379 redis
+  - docker run -d --name redisDev -p 6379:6379 redis
   - docker build -t datdevboi/official-finders-server -f Dockerfile.dev .
 
 # before_script: sudo redis-server /etc/redis/redis.confg --port 6379
