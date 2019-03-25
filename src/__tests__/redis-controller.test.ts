@@ -6,6 +6,8 @@ import {
   closeRedisConnection
 } from "../utils/quickscores/redis-controller";
 
+jest.setTimeout(10000);
+
 beforeEach(async(done) => {
   await flushall();
 
@@ -18,7 +20,7 @@ afterAll(async(done) => {
 })
 
 describe("Redis-Controller", () => {
-  test("Adding to list", async done => {
+  test.skip("Adding to list", async done => {
     await addDataNameToSeasonList("winter-2017-Nov-06", "Winter 2017");
     await addDataNameToSeasonList("winter-2017-Nov-07", "Winter 2017");
     await addDataNameToSeasonList("winter-2017-Nov-08", "Winter 2017");
@@ -33,5 +35,5 @@ describe("Redis-Controller", () => {
 
     done();
     
-  }, 50000);
+  });
 });
