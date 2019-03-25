@@ -6,8 +6,10 @@ import {
   closeRedisConnection
 } from "../utils/quickscores/redis-controller";
 
-beforeEach(() => {
-  return flushall();
+beforeEach(async(done) => {
+  await flushall();
+
+  done();
 });
 
 afterAll(async(done) => {
@@ -30,5 +32,5 @@ describe("Redis-Controller", () => {
     ]);
 
     done();
-  }, 50000);
+  });
 });
