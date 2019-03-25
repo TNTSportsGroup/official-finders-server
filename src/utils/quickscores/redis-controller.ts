@@ -50,3 +50,7 @@ export const addDataNameToSeasonList = async (
 export const flushall = async () => {
   await redis.flushall();
 };
+
+export const closeRedisConnection = async () => {
+  await redis.quit();
+}
