@@ -3,26 +3,32 @@ import {
   getLastEntryInSeasonList,
   addDataNameToSeasonList,
   flushall,
-  closeRedisConnection
+  quitRedisConnection,
+  pingRedis
 } from "../utils/quickscores/redis-controller";
 
 
 
 
 
-beforeEach(async(done) => {
+beforeEach(async() => {
   await flushall();
 
   
 });
 
-afterAll(async(done) => {
- closeRedisConnection();
+afterAll(async() => {
+ await quitRedisConnection();
  
 })
 
 describe("Redis-Controller", () => {
-  test("Adding to list", async done => {
+  test("Connection is working", async() => {
+    const redisResponse =  await pingRedis()
+
+    expect(redisResponse).toBe('PONG')
+  })
+  test("Adding to list", async () => {
     await addDataNameToSeasonList("winter-2017-Nov-06", "Winter 2017");
     await addDataNameToSeasonList("winter-2017-Nov-07", "Winter 2017");
     await addDataNameToSeasonList("winter-2017-Nov-08", "Winter 2017");
@@ -37,5 +43,5 @@ describe("Redis-Controller", () => {
 
    
     
-  }, 9999);
+  });
 });
