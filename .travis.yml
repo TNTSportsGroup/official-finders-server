@@ -12,4 +12,4 @@ script:
   #- docker container ls
   #- docker exec -it official-finders-server-test bash
   #- docker run officialfindersserver_server npm run test -- --detectOpenHandles --coverage
-  - docker run datdevboi/official-finders-server npm run test --detectOpenHandles --coverage
+  - docker run datdevboi/official-finders-server npm run test:ci --detectOpenHandles --coverage
