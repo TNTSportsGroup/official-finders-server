@@ -5,9 +5,10 @@ services:
 
 before_install:
   - docker-compose -f docker-compose-dev.yml up -d --build
+  - docker exec -it official-finders-server-test bash
   #- docker build -t datdevboi/official-finders-server -f Dockerfile.dev .
 
 script:
-  - docker exec -it official-finders-server-test bash
+  #- docker exec -it official-finders-server-test bash
   - npm run test
   #- docker run datdevboi/official-finders-server --env REDIS_PORT="6379"
