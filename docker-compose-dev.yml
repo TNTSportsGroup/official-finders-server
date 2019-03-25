@@ -15,6 +15,7 @@ services:
     environment:
       - REDIS_PORT=6379
       - REDIS_HOST=redis
+    container_name: official-finders-server
     volumes:
       - /app/node_modules
       - .:/app
