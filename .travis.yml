@@ -8,7 +8,7 @@ before_install:
   #- docker exec -it official-finders-server-test bash
   - docker build -t datdevboi/official-finders-server -f Dockerfile.dev .
 
-before_script: sudo redis-server /etc/redis/redis.confg --port 6380
+before_script: sudo redis-server /etc/redis/redis.confg --port 6379
 
 script:
   #- docker container ls
