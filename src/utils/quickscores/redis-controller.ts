@@ -1,4 +1,12 @@
-import { redis } from "../../redis";
+import { redis as defaultRedis } from "../../redis";
+import Redis from 'ioredis-mock';
+
+let redis = new Redis();
+if(process.env.NODE_ENV !== 'test') {
+  redis = defaultRedis
+} 
+
+
 
 export const writeQuickScoreDataToRedis = async (name: string, obj: any) => {
   await redis.set(name, JSON.stringify(obj));
