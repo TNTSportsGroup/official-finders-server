@@ -6,17 +6,17 @@ import {
   closeRedisConnection
 } from "../utils/quickscores/redis-controller";
 
-jest.setTimeout(200);
+
 
 beforeEach(async(done) => {
   await flushall();
 
-  done();
+  
 });
 
 afterAll(async(done) => {
-  await closeRedisConnection();
-  done()
+ closeRedisConnection();
+ 
 })
 
 describe("Redis-Controller", () => {
@@ -33,7 +33,7 @@ describe("Redis-Controller", () => {
       "winter-2017-Nov-06"
     ]);
 
-    done();
+   
     
-  });
+  }, 9999);
 });
