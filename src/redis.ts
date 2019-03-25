@@ -1,12 +1,16 @@
-import Redis from "ioredis";
+import IORedis from "ioredis";
 import { keys } from "./keys";
+import IORedisMock from 'ioredis-mock'
 
 // made an instance of redis and exported it.
 
-console.log(keys.REDIS_PORT);
-console.log(keys.REDIS_HOST);
-export const redis = new Redis({
+export let redis = new IORedis({
   port: parseInt(keys.REDIS_PORT) || 6379,
   host: keys.REDIS_HOST || 'redis',
   enableReadyCheck: true
 });
+
+if(process.env.NODE_ENV === "test") {
+  redis = new IORedisMock();
+}
+
