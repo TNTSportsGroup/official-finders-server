@@ -1,5 +1,5 @@
 import { isEqual } from "lodash";
-import { getQuickScoreDataFromRedis } from "./usingRedis";
+import { getQuickScoreDataFromRedis } from "./redis-controller";
 import { ILeagueTable, IGame } from "./types";
 
 export const compareQuickScoreData = async (

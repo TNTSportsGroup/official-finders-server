@@ -4,7 +4,7 @@ import {
   createNewGamesCsv,
   createUpdatedGamesCsv
 } from "../utils/quickscores/createGamesCsv";
-import { writeQuickScoreDataToRedis } from "../utils/quickscores/usingRedis";
+import { writeQuickScoreDataToRedis } from "../utils/quickscores/redis-controller";
 import { getUpcomingGames } from "../utils/quickscores/getUpcomingGames";
 
 export const QsRouter = express.Router();

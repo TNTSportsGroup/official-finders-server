@@ -4,6 +4,8 @@ services:
     image: postgres
   redis:
     image: redis
+    expose:
+      - 6379
   server:
     build:
       context: .
@@ -13,13 +15,20 @@ services:
     environment:
       - REDIS_PORT=6379
       - REDIS_HOST=redis
+    container_name: official-finders-server
     volumes:
       - /app/node_modules
       - .:/app
+    depends_on:
+      - redis
   tests:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    container_name: official-finders-server-test
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
     volumes:
       - /app/node_modules
       - .:/app
