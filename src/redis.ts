@@ -5,5 +5,5 @@ import { keys } from "./keys";
 
 export const redis = new Redis({
   port: parseInt(keys.REDIS_PORT) || 6379,
-  host: keys.REDIS_HOST,
+  host: keys.REDIS_HOST || 'localhost',
 });
