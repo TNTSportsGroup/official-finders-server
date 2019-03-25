@@ -48,6 +48,10 @@ export const flushall = async () => {
   await redis.flushall();
 };
 
-export const closeRedisConnection = async () => {
-  await redis.quit();
+export const quitRedisConnection =  () => {
+  return redis.quit();
+}
+
+export const pingRedis = () => {
+  return redis.ping()
 }
