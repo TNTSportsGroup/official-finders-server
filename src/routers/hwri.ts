@@ -13,9 +13,10 @@ import { createInvoiceCsvs } from "../utils/invoices/createInvoiceCsv";
 export const hwriRouter = express.Router();
 
 hwriRouter.get("/:folderName", (req, res) => {
-  const pathToFolder = path.resolve(
+  const pathToFolder = path.join(
     __dirname + `/../csvs/invoices/${req.params.folderName}`
   );
+  console.log(req.params.folderName);
 
   try {
     if (fs.existsSync(pathToFolder)) {
@@ -36,7 +37,7 @@ hwriRouter.get("/:folderName", (req, res) => {
   }
 });
 
-hwriRouter.post("/", (req, res) => {
+hwriRouter.post("/", async (req, res) => {
   if (req.files && req.files.file) {
     let file: any = req.files.file;
 
@@ -73,7 +74,7 @@ hwriRouter.post("/", (req, res) => {
       }
     ];
 
-    const folderName = createInvoiceCsvs(headers, invoiceMasterObj);
+    const folderName = await createInvoiceCsvs(headers, invoiceMasterObj);
 
     res.send({
       keys: invoiceKeys,
