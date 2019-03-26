@@ -1,19 +1,31 @@
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 import * as shortid from "shortid";
 import fs from "fs";
+
 import path from "path";
 import { Header } from "../payroll/createPayrollCsv";
 
-export const createInvoiceCsvs = (headers: Header[], records) => {
+const fsPromises = fs.promises;
+
+export const createInvoiceCsvs = async (headers: Header[], records) => {
   const folderName = shortid.generate();
-  fs.mkdirSync(path.resolve(__dirname + `/../csvs/invoices/${folderName}`));
 
   const keys = Object.keys(records);
+  try {
+    await fsPromises.mkdir(
+      path.resolve(__dirname + `/../../csvs/invoices/${folderName}`),
+      {
+        recursive: true
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
 
   for (const key of keys) {
     const csvWriter = createCsvWriter({
       path: path.resolve(
-        __dirname + `/../csvs/invoices/${folderName}/${key}.csv`
+        __dirname + `/../../csvs/invoices/${folderName}/${key}.csv`
       ),
       header: headers
     });
