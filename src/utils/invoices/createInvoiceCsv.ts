@@ -1,8 +1,10 @@
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 import * as shortid from "shortid";
+import child_process from "child_process";
 import fs from "fs";
 
 import path from "path";
+
 import { Header } from "../payroll/createPayrollCsv";
 
 const fsPromises = fs.promises;
@@ -39,6 +41,10 @@ export const createInvoiceCsvs = async (headers: Header[], records) => {
         console.log(e);
       });
   }
+
+  child_process.exec(`zip -r invoice *`, {
+    cwd: path.resolve(__dirname + `/../../csvs/invoices/${folderName}`)
+  });
 
   return folderName;
 };
