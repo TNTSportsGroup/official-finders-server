@@ -1,4 +1,6 @@
 FROM node:10.15.3-alpine
+RUN apk add --no-cache bash
+RUN apk add zip 
 WORKDIR "./app"
 COPY ./package.json ./
 RUN npm install 
