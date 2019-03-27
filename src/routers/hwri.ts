@@ -20,9 +20,7 @@ hwriRouter.get("/:folderName", (req, res) => {
   );
 
   fs.exists(path.resolve(pathToFolder + "invoice.zip"), exist => {
-    console.log(exist);
     if (!exist) {
-      console.log("i ran");
       child_process.exec(`zip -v invoice *`, {
         cwd: pathToFolder
       });
