@@ -10,31 +10,29 @@ import {
 } from "../utils/invoices/createInvoiceObj";
 import { createInvoiceCsvs } from "../utils/invoices/createInvoiceCsv";
 
+const fsPromises = fs.promises;
+
 export const hwriRouter = express.Router();
 
 hwriRouter.get("/:folderName", (req, res) => {
-  const pathToFolder = path.join(
+  const pathToFolder = path.resolve(
     __dirname + `/../csvs/invoices/${req.params.folderName}`
   );
-  console.log(req.params.folderName);
 
-  try {
-    if (fs.existsSync(pathToFolder)) {
-      child_process.exec(`zip -r invoice *`, {
+  fs.exists(path.resolve(pathToFolder + "invoice.zip"), exist => {
+    console.log(exist);
+    if (!exist) {
+      console.log("i ran");
+      child_process.exec(`zip -v invoice *`, {
         cwd: pathToFolder
       });
-
-      res.sendFile(pathToFolder + "/invoice.zip", {
-        headers: {
-          "content-type": "application/zip"
-        }
-      });
     }
-  } catch (err) {
-    res.status(404).send({
-      error: "folder does not exist"
+    res.sendFile(path.resolve(pathToFolder + "/invoice.zip"), {
+      headers: {
+        "content-type": "application/zip"
+      }
     });
-  }
+  });
 });
 
 hwriRouter.post("/", async (req, res) => {
