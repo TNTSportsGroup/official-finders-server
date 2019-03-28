@@ -8,13 +8,4 @@ export const matchSeasonAndYear = (season: string, year: number) => (
   const matches = str.match(seasonRegularExpression);
 
   return !!matches;
-
-  // if (matches === null) {
-  //   return false;
-  // }
-
-  // if (matches.length > 1) {
-  //   return true;
-  // }
-  // return false;
 };
