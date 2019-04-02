@@ -1,6 +1,5 @@
 import { matchSeasonAndYear } from "./matchSeasonAndYear";
 import { filterBy } from "./filterBy";
-
 import { QuickScoreDistrict } from "./request";
 import { ILeagueTable, IQuickScoresEvent, IQuickScoresGameData } from "./types";
 
@@ -40,13 +39,13 @@ export async function getUpcomingGames(
     process.env.GLEN_ELLYN_PARK_DISTRICT
   );
   // Get event list
-  const districtData = await DistrictQuickScore.eventList();
+  const districtEventList = await DistrictQuickScore.eventList();
 
   // TODO if carol stream only get soccer volleyball hockey dodgeball
 
   // filter by the season
 
-  const seasonSchedule = filterByLeagueSeason(districtData);
+  const seasonSchedule = filterByLeagueSeason(districtEventList);
 
   let upcomingGames: ILeagueTable = {};
 
