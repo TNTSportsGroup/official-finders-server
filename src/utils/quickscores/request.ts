@@ -75,7 +75,35 @@ export interface ISchedule {
   RegularGameData: IGameData[];
 }
 
-export class QuickScoreReq {
+interface IOrgInfo {
+  OrgName: string;
+  OrgDir: string;
+  City: string;
+  State: string;
+  Zip: string;
+  Latitude: string;
+  Longitude: string;
+  TimeZone: string;
+  DisplayOrgName: string;
+  Logo: string;
+  DisplayUrl: string;
+  HomePageHTML: string;
+  MobileHomePageHTML: string;
+  MessageLastUpdated: string;
+  HomePageBgColor: string;
+  MobileDisplayOrgName: string;
+  MobileHeaderLogo: string;
+  ContactUs: string;
+  Downloads: [
+    {
+      displayName: string;
+      FileUrl: string;
+      GroupName: string;
+      LastUpdated: string;
+    }
+  ];
+}
+export class QuickScoreDistrict {
   private orgDir: string;
   private authToken: string;
   constructor(orgDir: string, authToken: string) {
@@ -83,34 +111,7 @@ export class QuickScoreReq {
     this.authToken = authToken;
   }
 
-  async orgInfo(): Promise<{
-    OrgName: string;
-    OrgDir: string;
-    City: string;
-    State: string;
-    Zip: string;
-    Latitude: string;
-    Longitude: string;
-    TimeZone: string;
-    DisplayOrgName: string;
-    Logo: string;
-    DisplayUrl: string;
-    HomePageHTML: string;
-    MobileHomePageHTML: string;
-    MessageLastUpdated: string;
-    HomePageBgColor: string;
-    MobileDisplayOrgName: string;
-    MobileHeaderLogo: string;
-    ContactUs: string;
-    Downloads: [
-      {
-        displayName: string;
-        FileUrl: string;
-        GroupName: string;
-        LastUpdated: string;
-      }
-    ];
-  }> {
+  async orgInfo(): Promise<IOrgInfo> {
     try {
       const response = await axios.get(
         `https://www.quickscores.com/API/OrgInfo.php?OrgDir=${
