@@ -1,5 +1,4 @@
 import { matchSport } from "./matchSport";
-import { match } from "minimatch";
 
 export const filterBySports = (sports: any[]) => (data: any[]) => {
   if (sports.length === 1) {
