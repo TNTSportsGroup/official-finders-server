@@ -9,5 +9,6 @@ describe("matchSport", () => {
     expect(matchSport("Soccer", "Adult Baseball")).toBe(false);
     expect(matchSport("Soccer", "Youth Soccer")).toBe(true);
     expect(matchSport("Soccer", "Adult Volleyball")).toBe(false);
+    expect(matchSport("Youth Soccer", "Soccer")).toBe(false);
   });
 });
