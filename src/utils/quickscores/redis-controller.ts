@@ -1,18 +1,22 @@
-import { redis} from "../../redis";
-
-
-
-
-
+import { redis } from "../../redis";
 
 export const writeQuickScoreDataToRedis = async (name: string, obj: any) => {
-  await redis.set(name, JSON.stringify(obj));
+  await redis.hset(name, "SeasonHash", JSON.stringify(obj));
 };
 
-export const getQuickScoreDataFromRedis = async (season: string) => {
-  const string = await redis.get(season);
+export const getQuickScoreDataFromRedis = async (name: string) => {
+  const string = await redis.hget(name, "SeasonHash");
 
   return JSON.parse(string);
+};
+
+export const getDataFromRedisHash = async (key: string) => {
+  const data = await redis.hget("SeasonHash", key);
+  return JSON.parse(data);
+};
+
+export const setDataToRedisHash = async (key: string, data: any) => {
+  redis.hset("SeasonHash", key, JSON.stringify(data));
 };
 
 export const getSeasonList = async (season: string) => {
@@ -48,10 +52,20 @@ export const flushall = async () => {
   await redis.flushall();
 };
 
-export const quitRedisConnection =  () => {
+export const quitRedisConnection = () => {
   return redis.quit();
-}
+};
 
 export const pingRedis = () => {
-  return redis.ping()
-}
+  return redis.ping();
+};
+
+export const getKeysFromRedishHash = () => {
+  return redis.hkeys("SeasonHash");
+  // redis.hkeys("SeasonHash", (e, res) => {
+  //   if (e) {
+  //     console.log(e);
+  //   }
+  //   return res;
+  // });
+};

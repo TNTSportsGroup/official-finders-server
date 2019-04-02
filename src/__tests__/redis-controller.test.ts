@@ -6,7 +6,8 @@ import {
   quitRedisConnection,
   pingRedis,
   setDataToRedisHash,
-  getDataFromRedisHash
+  getDataFromRedisHash,
+  getKeysFromRedishHash
 } from "../utils/quickscores/redis-controller";
 
 beforeEach(async () => {
@@ -58,5 +59,17 @@ describe("Redis-Controller", () => {
     expect(await getDataFromRedisHash("Winter-2017-fdinnhij52")).toEqual({
       name: "test2"
     });
+  });
+
+  test("test SeasonHash listing", async () => {
+    await setDataToRedisHash("Winter-2017-f5d1f5", { name: "test" });
+    await setDataToRedisHash("Winter-2017-fdinnhij52", { name: "test2" });
+    await setDataToRedisHash("Winter-2017-fdinjfkfni", { name: "test3" });
+
+    expect(await getKeysFromRedishHash()).toEqual([
+      "Winter-2017-f5d1f5",
+      "Winter-2017-fdinnhij52",
+      "Winter-2017-fdinjfkfni"
+    ]);
   });
 });
