@@ -1,7 +1,7 @@
 import { matchSeasonAndYear } from "./matchSeasonAndYear";
 import { filterBy } from "./filterBy";
 
-import { QuickScoreReq, IEvent, IGameData } from "./request";
+import { QuickScoreDistrict, IEvent, IGameData } from "./request";
 import { ILeagueTable } from "./types";
 
 const QUICKSCOREDIR = {
@@ -21,26 +21,37 @@ const filterByLeagueSeason = filterBy<IEvent>(league =>
 
 const filterByDate = filterBy<IGameData>(game => game.Date >= "2019-03-13");
 
-export async function getUpcomingGames() {
-  const demo = new QuickScoreReq(
+interface UpcomingGamesOptions {
+  districtFilterOptions: {
+    [key: string]: {
+      filterBySports: () => void;
+    };
+  };
+}
+
+export async function getUpcomingGames(
+  season?: string,
+  options?: UpcomingGamesOptions
+) {
+  const DistrictQuickScore = new QuickScoreDistrict(
     QUICKSCOREDIR.GLEN_ELLYN_PARK_DISTRICT,
     process.env.GLEN_ELLYN_PARK_DISTRICT
   );
   // Get event list
-  const data = await demo.eventList();
+  const districtData = await DistrictQuickScore.eventList();
 
   // TODO if carol stream only get soccer volleyball hockey dodgeball
 
   // filter by the season
 
-  const seasonSchedule = filterByLeagueSeason(data);
+  const seasonSchedule = filterByLeagueSeason(districtData);
 
   let upcomingGames: ILeagueTable = {};
 
   for (let league of seasonSchedule) {
     upcomingGames[league.LeagueID] = [];
 
-    let { RegularGameData, LeagueName } = await demo.scheduleInfo(
+    let { RegularGameData, LeagueName } = await DistrictQuickScore.scheduleInfo(
       league.LeagueID
     );
 
