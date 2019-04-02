@@ -1,8 +1,8 @@
 import { matchSeasonAndYear } from "./matchSeasonAndYear";
 import { filterBy } from "./filterBy";
 
-import { QuickScoreDistrict, IEvent, IGameData } from "./request";
-import { ILeagueTable } from "./types";
+import { QuickScoreDistrict } from "./request";
+import { ILeagueTable, IQuickScoresEvent, IQuickScoresGameData } from "./types";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
@@ -15,11 +15,13 @@ const QUICKSCOREDIR = {
 
 const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
 
-const filterByLeagueSeason = filterBy<IEvent>(league =>
+const filterByLeagueSeason = filterBy<IQuickScoresEvent>(league =>
   seasonToFilterBy(league.Season)
 );
 
-const filterByDate = filterBy<IGameData>(game => game.Date >= "2019-03-13");
+const filterByDate = filterBy<IQuickScoresGameData>(
+  game => game.Date >= "2019-03-13"
+);
 
 interface UpcomingGamesOptions {
   districtFilterOptions: {
