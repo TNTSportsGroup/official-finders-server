@@ -1,5 +1,8 @@
 import { isEqual } from "lodash";
-import { getQuickScoreDataFromRedis } from "./redis-controller";
+import {
+  getQuickScoreDataFromRedis,
+  getLastEntryInSeasonList
+} from "./redis-controller";
 import { ILeagueTable, IGame } from "./types";
 
 export const compareQuickScoreData = async (
@@ -9,7 +12,8 @@ export const compareQuickScoreData = async (
   let updatedGames: IGame[] = [];
   let newGames: IGame[] = [];
 
-  const previousData = await getQuickScoreDataFromRedis(season);
+  const lastSeason = await getLastEntryInSeasonList(season);
+  const previousData = await getQuickScoreDataFromRedis(lastSeason);
 
   if (!previousData) {
     newGames = Object.keys(currentData).reduce((prev, key) => {
