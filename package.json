@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
+    "start:prod": "nodemon --exec node run build/index.js",
     "test": "jest",
     "test:ci": "jest --detectOpenHandles --coverage",
     "test:watch": "jest --watch",
