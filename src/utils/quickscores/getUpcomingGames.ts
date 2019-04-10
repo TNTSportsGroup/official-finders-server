@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { matchSeasonAndYear } from "./matchSeasonAndYear";
 import { filterBy } from "./filterBy";
 
@@ -19,7 +20,9 @@ const filterByLeagueSeason = filterBy<IEvent>(league =>
   seasonToFilterBy(league.Season)
 );
 
-const filterByDate = filterBy<IGameData>(game => game.Date >= "2019-03-13");
+const todaysDate = dayjs().format("YYYY-MM-DD");
+
+const filterByDate = filterBy<IGameData>(game => game.Date >= todaysDate);
 
 export async function getUpcomingGames() {
   const demo = new QuickScoreReq(
