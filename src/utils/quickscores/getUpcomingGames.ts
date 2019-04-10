@@ -14,21 +14,21 @@ const QUICKSCOREDIR = {
   CAROL_STREAM_PARK_DISTRICT: "csparks"
 };
 
-const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
+export async function getUpcomingGames(season: string, year: number) {
+  const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
+  const filterByLeagueSeason = filterBy<IEvent>(league =>
+    seasonToFilterBy(league.Season)
+  );
 
-const filterByLeagueSeason = filterBy<IEvent>(league =>
-  seasonToFilterBy(league.Season)
-);
+  const todaysDate = dayjs().format("YYYY-MM-DD");
 
-const todaysDate = dayjs().format("YYYY-MM-DD");
+  const filterByDate = filterBy<IGameData>(game => game.Date >= todaysDate);
 
-const filterByDate = filterBy<IGameData>(game => game.Date >= todaysDate);
-
-export async function getUpcomingGames() {
   const demo = new QuickScoreReq(
     QUICKSCOREDIR.GLEN_ELLYN_PARK_DISTRICT,
     process.env.GLEN_ELLYN_PARK_DISTRICT
   );
+
   // Get event list
   const data = await demo.eventList();
 
