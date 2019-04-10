@@ -2,6 +2,12 @@ version: "3"
 services:
   db:
     image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=official-finders-server-dev
   redis:
     image: redis
     expose:
@@ -15,12 +21,17 @@ services:
     environment:
       - REDIS_PORT=6379
       - REDIS_HOST=redis
+      - PGHOST=db
+      - PGPASSWORD=postgres
+      - PGUSER=postgres
+      - PGPORT=5432
     container_name: official-finders-server
     volumes:
       - /app/node_modules
       - .:/app
     depends_on:
       - redis
+      - db
   tests:
     build:
       context: .
