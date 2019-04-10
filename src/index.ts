@@ -6,6 +6,7 @@ import fileUpload from "express-fileupload";
 import { hwriRouter } from "./routers/hwri";
 import { QsRouter } from "./routers/qs";
 import { makeCsvDirectories } from "./utils/makeCsvDirectories";
+import { createDatabaseConn } from "./createDatabaseConn";
 
 const app = express();
 
@@ -23,11 +24,15 @@ app.use("/qs", QsRouter);
 
 const port = 3000;
 
-app.listen(port, async () => {
-  console.log(`server is running on http://localhost:${port}`);
-  try {
-    await makeCsvDirectories();
-  } catch (e) {
-    console.log(e);
-  }
+const connection = createDatabaseConn();
+
+connection.then(() => {
+  app.listen(port, async () => {
+    console.log(`server is running on http://localhost:${port}`);
+    try {
+      await makeCsvDirectories();
+    } catch (e) {
+      console.log(e);
+    }
+  });
 });
