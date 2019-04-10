@@ -11,5 +11,5 @@ export class QuickScore extends BaseEntity {
   year: number;
 
   @Column("json")
-  data: string;
+  data: Object;
 }
