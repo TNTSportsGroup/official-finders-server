@@ -1,8 +1,8 @@
 module.exports = [
   {
-    name: "development",
+    name: "default",
     type: "postgres",
-    host: "localhost",
+    host: process.env.PGHOST,
     port: 5432,
     username: "postgres",
     password: "postgres",
