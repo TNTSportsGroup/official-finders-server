@@ -1,9 +1,8 @@
 import dayjs from "dayjs";
 import { matchSeasonAndYear } from "./matchSeasonAndYear";
 import { filterBy } from "./filterBy";
-
-import { QuickScoreReq, IEvent, IGameData } from "./request";
-import { ILeagueTable } from "./types";
+import { QuickScoreDistrict } from "./request";
+import { ILeagueTable, IQuickScoresEvent, IQuickScoresGameData } from "./types";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
@@ -20,33 +19,54 @@ export async function getUpcomingGames(season: string, year: number) {
     seasonToFilterBy(league.Season)
   );
 
-  const todaysDate = dayjs().format("YYYY-MM-DD");
+const filterByLeagueSeason = filterBy<IQuickScoresEvent>(league =>
+  seasonToFilterBy(league.Season)
+);
 
-  const filterByDate = filterBy<IGameData>(game => game.Date >= todaysDate);
+const filterByDate = filterBy<IQuickScoresGameData>(
+  game => game.Date >= "2019-03-13"
+);
 
-  const demo = new QuickScoreReq(
+interface UpcomingGamesOptions {
+  districtFilterOptions: {
+    [key: string]: {
+      filterBySports: () => void;
+    };
+  };
+}
+
+export async function getUpcomingGames(
+  season?: string,
+  options?: UpcomingGamesOptions
+) {
+  const DistrictQuickScore = new QuickScoreDistrict(
+  
+
     QUICKSCOREDIR.GLEN_ELLYN_PARK_DISTRICT,
     process.env.GLEN_ELLYN_PARK_DISTRICT
   );
 
   // Get event list
-  const data = await demo.eventList();
+  const districtEventList = await DistrictQuickScore.eventList();
+  console.log(districtEventList);
 
   // TODO if carol stream only get soccer volleyball hockey dodgeball
 
   // filter by the season
 
-  const seasonSchedule = filterByLeagueSeason(data);
+  const seasonSchedule = filterByLeagueSeason(districtEventList);
 
   let upcomingGames: ILeagueTable = {};
 
   for (let league of seasonSchedule) {
     upcomingGames[league.LeagueID] = [];
 
-    let { RegularGameData, LeagueName } = await demo.scheduleInfo(
-      league.LeagueID
-    );
-
+    let {
+      RegularGameData,
+      LeagueName,
+      SportName
+    } = await DistrictQuickScore.scheduleInfo(league.LeagueID);
+    console.log(SportName);
     let newData = filterByDate(RegularGameData);
 
     newData.forEach(game => {
