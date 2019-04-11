@@ -13,16 +13,6 @@ const QUICKSCOREDIR = {
   CAROL_STREAM_PARK_DISTRICT: "csparks"
 };
 
-const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
-
-const filterByLeagueSeason = filterBy<IQuickScoresEvent>(league =>
-  seasonToFilterBy(league.Season)
-);
-
-const filterByDate = filterBy<IQuickScoresGameData>(
-  game => game.Date >= "2019-03-13"
-);
-
 interface UpcomingGamesOptions {
   districtFilterOptions: {
     [key: string]: {
@@ -32,9 +22,21 @@ interface UpcomingGamesOptions {
 }
 
 export async function getUpcomingGames(
-  season?: string,
+  season: string,
+  year: number,
   options?: UpcomingGamesOptions
 ) {
+  const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
+
+  const filterByLeagueSeason = filterBy<IQuickScoresEvent>(league =>
+    seasonToFilterBy(league.Season)
+  );
+
+  const todaysDate = dayjs().format("YYYY-MM-DD");
+
+  const filterByDate = filterBy<IQuickScoresGameData>(
+    game => game.Date >= todaysDate
+  );
   const DistrictQuickScore = new QuickScoreDistrict(
     QUICKSCOREDIR.GLEN_ELLYN_PARK_DISTRICT,
     process.env.GLEN_ELLYN_PARK_DISTRICT
