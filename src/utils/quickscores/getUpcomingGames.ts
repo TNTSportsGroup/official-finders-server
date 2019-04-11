@@ -26,8 +26,10 @@ export async function getUpcomingGames(
   year: number,
   options?: UpcomingGamesOptions
 ) {
+  // season and year to filterBy
   const seasonToFilterBy = matchSeasonAndYear(season, year);
 
+  // filter by Season
   const filterByLeagueSeason = filterBy<IQuickScoresEvent>(league =>
     seasonToFilterBy(league.Season)
   );
