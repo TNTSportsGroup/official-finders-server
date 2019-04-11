@@ -15,9 +15,7 @@ const QUICKSCOREDIR = {
 
 export async function getUpcomingGames(season: string, year: number) {
   const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
-  const filterByLeagueSeason = filterBy<IEvent>(league =>
-    seasonToFilterBy(league.Season)
-  );
+  
 
 const filterByLeagueSeason = filterBy<IQuickScoresEvent>(league =>
   seasonToFilterBy(league.Season)
