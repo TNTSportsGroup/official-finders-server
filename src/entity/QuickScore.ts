@@ -19,6 +19,6 @@ export class QuickScore extends BaseEntity {
   @Column("json")
   data: Object;
 
-  @CreateDateColumn({ type: "timestamp" })
-  createdAt: Date;
+  @CreateDateColumn()
+  createdDate: Date;
 }
