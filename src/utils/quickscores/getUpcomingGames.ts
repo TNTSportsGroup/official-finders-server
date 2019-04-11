@@ -46,7 +46,7 @@ export async function getUpcomingGames(
 
   // Get event list
   const districtEventList = await DistrictQuickScore.eventList();
-  console.log(districtEventList);
+  //console.log(districtEventList);
 
   // TODO if carol stream only get soccer volleyball hockey dodgeball
 
@@ -64,7 +64,7 @@ export async function getUpcomingGames(
       LeagueName,
       SportName
     } = await DistrictQuickScore.scheduleInfo(league.LeagueID);
-    console.log(SportName);
+    //console.log(SportName);
     let newData = filterByDate(RegularGameData);
 
     newData.forEach(game => {
