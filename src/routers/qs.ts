@@ -4,8 +4,9 @@ import {
   createNewGamesCsv,
   createUpdatedGamesCsv
 } from "../utils/quickscores/createGamesCsv";
-import { writeQuickScoreDataToRedis } from "../utils/quickscores/redis-controller";
+
 import { getUpcomingGames } from "../utils/quickscores/getUpcomingGames";
+import { insertNewQuickScoresDataSet } from "../utils/quickscores/db-controller";
 
 export const QsRouter = express.Router();
 
@@ -14,8 +15,11 @@ QsRouter.get("/", async (req, res) => {
 
   const upcomingGames = await getUpcomingGames(season, year);
 
+  //console.log(upcomingGames);
+
   const { newGames, updatedGames } = await compareQuickScoreData(
-    "Winter 2019",
+    season,
+    year,
     upcomingGames
   );
 
@@ -60,7 +64,7 @@ QsRouter.get("/", async (req, res) => {
     responseObject.updatedGamesFileName = updatedGamesFileName;
   }
 
-  writeQuickScoreDataToRedis("Winter 2019", upcomingGames);
+  await insertNewQuickScoresDataSet(season, year, upcomingGames);
 
   res.send(responseObject);
 });
