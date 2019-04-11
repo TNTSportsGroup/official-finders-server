@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  CreateDateColumn
+} from "typeorm";
 
 @Entity("quickscores")
 export class QuickScore extends BaseEntity {
@@ -12,4 +18,7 @@ export class QuickScore extends BaseEntity {
 
   @Column("json")
   data: Object;
+
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt: Date;
 }
