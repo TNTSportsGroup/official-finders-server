@@ -20,6 +20,8 @@ QsRouter.get("/", async (req, res) => {
     res.send({
       error: "You already request new and updates games today"
     });
+
+    return;
   }
 
   const upcomingGames = await getUpcomingGames(season, year);
