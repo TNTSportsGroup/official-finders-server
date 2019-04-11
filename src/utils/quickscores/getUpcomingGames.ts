@@ -13,9 +13,7 @@ const QUICKSCOREDIR = {
   CAROL_STREAM_PARK_DISTRICT: "csparks"
 };
 
-export async function getUpcomingGames(season: string, year: number) {
-  const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
-  
+const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
 
 const filterByLeagueSeason = filterBy<IQuickScoresEvent>(league =>
   seasonToFilterBy(league.Season)
@@ -38,8 +36,6 @@ export async function getUpcomingGames(
   options?: UpcomingGamesOptions
 ) {
   const DistrictQuickScore = new QuickScoreDistrict(
-  
-
     QUICKSCOREDIR.GLEN_ELLYN_PARK_DISTRICT,
     process.env.GLEN_ELLYN_PARK_DISTRICT
   );
