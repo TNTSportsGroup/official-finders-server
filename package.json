@@ -27,6 +27,8 @@
     "express-fileupload": "^1.1.1-alpha.3",
     "ioredis": "^4.6.2",
     "lodash": "^4.17.11",
+    "pg": "^7.9.0",
+    "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.3",
     "shortid": "^2.2.14",
     "typeorm": "^0.2.15-rc.2"
@@ -39,6 +41,7 @@
     "@types/ioredis": "^4.0.9",
     "@types/jest": "^24.0.6",
     "@types/lodash": "^4.14.122",
+    "@types/pg": "^7.4.14",
     "@types/shortid": "^0.0.29",
     "ioredis-mock": "^4.8.2",
     "jest": "^24.1.0",

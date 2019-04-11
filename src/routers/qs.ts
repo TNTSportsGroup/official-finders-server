@@ -10,7 +10,9 @@ import { getUpcomingGames } from "../utils/quickscores/getUpcomingGames";
 export const QsRouter = express.Router();
 
 QsRouter.get("/", async (req, res) => {
-  const upcomingGames = await getUpcomingGames();
+  const { season, year } = req.query;
+
+  const upcomingGames = await getUpcomingGames(season, year);
 
   const { newGames, updatedGames } = await compareQuickScoreData(
     "Winter 2019",

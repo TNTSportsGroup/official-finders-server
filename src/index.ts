@@ -1,4 +1,5 @@
 require("dotenv").config();
+import "reflect-metadata";
 import express from "express";
 import bodyParser from "body-parser";
 import { hwrpRouter } from "./routers/hwrp";
@@ -6,6 +7,8 @@ import fileUpload from "express-fileupload";
 import { hwriRouter } from "./routers/hwri";
 import { QsRouter } from "./routers/qs";
 import { makeCsvDirectories } from "./utils/makeCsvDirectories";
+import { createDatabaseConn } from "./createDatabaseConn";
+import { QuickScore } from "./entity/QuickScore";
 
 const app = express();
 
@@ -23,11 +26,27 @@ app.use("/qs", QsRouter);
 
 const port = 3000;
 
-app.listen(port, async () => {
-  console.log(`server is running on http://localhost:${port}`);
-  try {
-    await makeCsvDirectories();
-  } catch (e) {
+const connection = createDatabaseConn();
+
+connection
+  .then(() => {
+    app.listen(port, async () => {
+      // const qs = await QuickScore.create({
+      //   season: "Winter",
+      //   year: 2018
+      // });
+
+      // qs.data = { name: "tj" };
+
+      // qs.save();
+      console.log(`server is running on http://localhost:${port}`);
+      try {
+        await makeCsvDirectories();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  })
+  .catch(e => {
     console.log(e);
-  }
-});
+  });
