@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { QuickScore } from "../../entity/QuickScore";
 
 export async function getLastQuickScoreDataSet(season: string, year: number) {
@@ -26,4 +27,21 @@ export async function insertNewQuickScoresDataSet(
   });
 
   await newEntry.save();
+}
+
+export async function isThisFirstTimeWeGetSchedulesToday(
+  season: string,
+  year: number
+) {
+  let dataSet = await getLastQuickScoreDataSet(season, year);
+  if (dataSet.length === 0) {
+    return false;
+  }
+
+  const lastDataCreated = dataSet[0];
+
+  return (
+    dayjs().format("YYYY-MM-DD") ===
+    dayjs(lastDataCreated.createdDate).format("YYYY-MM-DD")
+  );
 }
