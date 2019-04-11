@@ -31,14 +31,6 @@ const connection = createDatabaseConn();
 connection
   .then(() => {
     app.listen(port, async () => {
-      // const qs = await QuickScore.create({
-      //   season: "Winter",
-      //   year: 2018
-      // });
-
-      // qs.data = { name: "tj" };
-
-      // qs.save();
       console.log(`server is running on http://localhost:${port}`);
       try {
         await makeCsvDirectories();
