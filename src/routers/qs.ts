@@ -6,12 +6,21 @@ import {
 } from "../utils/quickscores/createGamesCsv";
 
 import { getUpcomingGames } from "../utils/quickscores/getUpcomingGames";
-import { insertNewQuickScoresDataSet } from "../utils/quickscores/db-controller";
+import {
+  insertNewQuickScoresDataSet,
+  isThisFirstTimeWeGetSchedulesToday
+} from "../utils/quickscores/db-controller";
 
 export const QsRouter = express.Router();
 
 QsRouter.get("/", async (req, res) => {
   const { season, year } = req.query;
+
+  if (isThisFirstTimeWeGetSchedulesToday(season, year)) {
+    res.send({
+      error: "You already request new and updates games today"
+    });
+  }
 
   const upcomingGames = await getUpcomingGames(season, year);
 
