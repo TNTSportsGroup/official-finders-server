@@ -1,0 +1,40 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=official-finders-db-prod
+  redis:
+    image: redis
+    expose:
+      - 6379
+  server:
+    image: officialfinders/official-finders-server-dev
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+      - PGHOST=db
+      - PGDATBASE=official-finders-db-prod
+      - PGPASSWORD=postgres
+      - PGUSER=postgres
+      - PGPORT=5432
+    restart: 'always'  
+    container_name: official-finders-server
+    volumes:
+      - /app/node_modules
+      - .:/app
+    depends_on:
+      - db
+    ##command: ["./wait-for-it.sh", "db:5432", "--", "node", "src/index.js"]  
+  
