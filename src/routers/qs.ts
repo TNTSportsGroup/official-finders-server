@@ -1,4 +1,6 @@
 import express from "express";
+import fs from "fs";
+import path from "path";
 import { compareQuickScoreData } from "../utils/quickscores/compareQuickScoreData";
 import {
   createNewGamesCsv,
@@ -12,6 +14,26 @@ import {
 } from "../utils/quickscores/db-controller";
 
 export const QsRouter = express.Router();
+
+QsRouter.get("/file/:name", async (req, res) => {
+  const pathToFile = path.resolve(
+    __dirname + `/../csvs/quickscores/${req.params.name}`
+  );
+
+  try {
+    if (fs.existsSync(pathToFile)) {
+      res.sendFile(pathToFile, "payroll.csv", e => {
+        if (e) {
+          console.log(e);
+        }
+      });
+    }
+  } catch (err) {
+    res.status(404).send({
+      error: "file does not exist"
+    });
+  }
+});
 
 QsRouter.get("/", async (req, res) => {
   const { season, year } = req.query;
