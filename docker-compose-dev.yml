@@ -35,6 +35,7 @@ services:
     depends_on:
       - redis
       - db
+    command: ["npm", "run", "start:dev"]  
   tests:
     build:
       context: .
