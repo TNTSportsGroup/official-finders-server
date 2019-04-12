@@ -29,18 +29,25 @@ export const compareQuickScoreData = async (
 
   const currentDataLeagues = Object.keys(currentData);
   previousData = previousData[0].data;
-  console.log(Object.keys(previousData));
-
+  //console.log(previousData);
   for (let league of currentDataLeagues) {
     currentData[league].forEach(game => {
-      let [oldGameData] = previousData[league].filter(
-        previousGame => previousGame.GameID === game.GameID
-      );
+      //TODO what if the previous data doesn't have that league -fixed
+      if (previousData[league]) {
+        // get the same game to check if it's been updated
+        let [oldGameData] = previousData[league].filter(
+          previousGame => previousGame.GameID === game.GameID
+        );
 
-      if (!oldGameData) {
+        if (!oldGameData) {
+          newGames.push(game);
+        } else if (!isEqual(game, oldGameData)) {
+          updatedGames.push(game);
+        }
+      }
+
+      if (!previousData[league]) {
         newGames.push(game);
-      } else if (!isEqual(game, oldGameData)) {
-        updatedGames.push(game);
       }
     });
   }
