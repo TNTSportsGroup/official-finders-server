@@ -3,20 +3,22 @@ import { matchSeasonAndYear } from "./matchSeasonAndYear";
 import { filterBy } from "./filterBy";
 import { QuickScoreDistrict } from "./request";
 import { ILeagueTable, IQuickScoresEvent, IQuickScoresGameData } from "./types";
+import { resolve } from "url";
+import { filterBySports } from "../../../build/src/utils/quickscores/filterBySports";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
   GLEN_ELLYN_YOUTH_BASEBALL: "geyba",
   GENEVA_PARK_DISTRICT: "genevaparks",
   GIRLS: "girls",
-  //WHEATON_PARK_DISTRICT: "wheaton",
+  WHEATON_PARK_DISTRICT: "wheaton",
   CAROL_STREAM_PARK_DISTRICT: "csparks"
 };
 
 interface UpcomingGamesOptions {
   districtFilterOptions: {
     [key: string]: {
-      filterBySports: () => void;
+      filterBySports: (any) => IQuickScoresEvent[];
     };
   };
 }
@@ -49,8 +51,21 @@ export async function getUpcomingGames(
     );
 
     // Get event list
-    const districtEventList = await DistrictQuickScore.eventList();
+    let districtEventList = await DistrictQuickScore.eventList();
     //console.log(districtEventList);
+    //console.log(districtEventList);
+
+    // filter by sports first
+    // this avoids us then getting league data that we don't need later.
+
+    if (key === "CAROL_STREAM_PARK_DISTRICT") {
+      districtEventList = filterBySports([
+        "Soccer",
+        "Volleyball",
+        "Hockey",
+        "Dodgeball"
+      ])(districtEventList);
+    }
 
     // TODO if carol stream only get soccer volleyball hockey dodgeball
 
