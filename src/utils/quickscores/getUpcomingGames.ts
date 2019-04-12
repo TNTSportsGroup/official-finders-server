@@ -9,7 +9,7 @@ const QUICKSCOREDIR = {
   GLEN_ELLYN_YOUTH_BASEBALL: "geyba",
   GENEVA_PARK_DISTRICT: "genevaparks",
   GIRLS: "girls",
-  WHEATON_PARK_DISTRICT: "wheaton",
+  //WHEATON_PARK_DISTRICT: "wheaton",
   CAROL_STREAM_PARK_DISTRICT: "csparks"
 };
 
@@ -39,45 +39,48 @@ export async function getUpcomingGames(
   const filterByDate = filterBy<IQuickScoresGameData>(
     game => game.Date >= todaysDate
   );
-  const DistrictQuickScore = new QuickScoreDistrict(
-    QUICKSCOREDIR.GLEN_ELLYN_PARK_DISTRICT,
-    process.env.GLEN_ELLYN_PARK_DISTRICT
-  );
-
-  // Get event list
-  const districtEventList = await DistrictQuickScore.eventList();
-  //console.log(districtEventList);
-
-  // TODO if carol stream only get soccer volleyball hockey dodgeball
-
-  // filter by the season
-
-  const seasonSchedule = filterByLeagueSeason(districtEventList);
 
   let upcomingGames: ILeagueTable = {};
 
-  for (let league of seasonSchedule) {
-    upcomingGames[league.LeagueID] = [];
+  for (const key of Object.keys(QUICKSCOREDIR)) {
+    const DistrictQuickScore = new QuickScoreDistrict(
+      QUICKSCOREDIR[key],
+      process.env[key]
+    );
 
-    let {
-      RegularGameData,
-      LeagueName,
-      SportName
-    } = await DistrictQuickScore.scheduleInfo(league.LeagueID);
-    //console.log(SportName);
-    let newData = filterByDate(RegularGameData);
+    // Get event list
+    const districtEventList = await DistrictQuickScore.eventList();
+    //console.log(districtEventList);
 
-    newData.forEach(game => {
-      upcomingGames[league.LeagueID].push({
-        GameID: game.GameID,
+    // TODO if carol stream only get soccer volleyball hockey dodgeball
+
+    // filter by the season
+
+    const seasonSchedule = filterByLeagueSeason(districtEventList);
+
+    for (let league of seasonSchedule) {
+      upcomingGames[league.LeagueID] = [];
+
+      let {
+        RegularGameData,
         LeagueName,
-        Date: game.Date,
-        Time: game.Time,
-        LocationName: game.LocationName,
-        HomeTeam: game.TeamName1,
-        AwayTeam: game.TeamName2
+        SportName
+      } = await DistrictQuickScore.scheduleInfo(league.LeagueID);
+      //console.log(SportName);
+      let newData = filterByDate(RegularGameData);
+
+      newData.forEach(game => {
+        upcomingGames[league.LeagueID].push({
+          GameID: game.GameID,
+          LeagueName,
+          Date: game.Date,
+          Time: game.Time,
+          LocationName: game.LocationName,
+          HomeTeam: game.TeamName1,
+          AwayTeam: game.TeamName2
+        });
       });
-    });
+    }
   }
 
   return upcomingGames;
