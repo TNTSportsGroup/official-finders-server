@@ -16,6 +16,7 @@ services:
     expose:
       - 6379
   server:
+    restart: 'always'
     build:
       context: .
       dockerfile: Dockerfile.dev
