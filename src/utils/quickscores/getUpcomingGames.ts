@@ -4,7 +4,7 @@ import { filterBy } from "./filterBy";
 import { QuickScoreDistrict } from "./request";
 import { ILeagueTable, IQuickScoresEvent, IQuickScoresGameData } from "./types";
 import { resolve } from "url";
-import { filterBySports } from "../../../build/src/utils/quickscores/filterBySports";
+import { filterBySports } from "./filterBySports";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
