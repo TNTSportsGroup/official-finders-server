@@ -17,3 +17,6 @@ script:
   #- docker run officialfindersserver_server npm run test -- --detectOpenHandles --coverage
   #- docker run -e REDIS_PORT=6379 -e REDIS_HOST=redis datdevboi/official-finders-server npm run start
   - docker run -e REDIS_PORT=6379 -e REDIS_HOST="localhost" datdevboi/official-finders-server npm run test:ci --detectOpenHandles --coverage
+
+after_success:
+  - ./build-docker-push.sh

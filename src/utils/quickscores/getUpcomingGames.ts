@@ -3,6 +3,8 @@ import { matchSeasonAndYear } from "./matchSeasonAndYear";
 import { filterBy } from "./filterBy";
 import { QuickScoreDistrict } from "./request";
 import { ILeagueTable, IQuickScoresEvent, IQuickScoresGameData } from "./types";
+import { resolve } from "url";
+import { filterBySports } from "./filterBySports";
 
 const QUICKSCOREDIR = {
   GLEN_ELLYN_PARK_DISTRICT: "glenellyn",
@@ -13,73 +15,87 @@ const QUICKSCOREDIR = {
   CAROL_STREAM_PARK_DISTRICT: "csparks"
 };
 
-export async function getUpcomingGames(season: string, year: number) {
-  const seasonToFilterBy = matchSeasonAndYear("Winter", 2019);
-  const filterByLeagueSeason = filterBy<IEvent>(league =>
-    seasonToFilterBy(league.Season)
-  );
-
-const filterByLeagueSeason = filterBy<IQuickScoresEvent>(league =>
-  seasonToFilterBy(league.Season)
-);
-
-const filterByDate = filterBy<IQuickScoresGameData>(
-  game => game.Date >= "2019-03-13"
-);
-
 interface UpcomingGamesOptions {
   districtFilterOptions: {
     [key: string]: {
-      filterBySports: () => void;
+      filterBySports: (any) => IQuickScoresEvent[];
     };
   };
 }
 
 export async function getUpcomingGames(
-  season?: string,
+  season: string,
+  year: number,
   options?: UpcomingGamesOptions
 ) {
-  const DistrictQuickScore = new QuickScoreDistrict(
-  
+  // season and year to filterBy
+  const seasonToFilterBy = matchSeasonAndYear(season, year);
 
-    QUICKSCOREDIR.GLEN_ELLYN_PARK_DISTRICT,
-    process.env.GLEN_ELLYN_PARK_DISTRICT
+  // filter by Season
+  const filterByLeagueSeason = filterBy<IQuickScoresEvent>(league =>
+    seasonToFilterBy(league.Season)
   );
 
-  // Get event list
-  const districtEventList = await DistrictQuickScore.eventList();
-  console.log(districtEventList);
+  const todaysDate = dayjs().format("YYYY-MM-DD");
 
-  // TODO if carol stream only get soccer volleyball hockey dodgeball
-
-  // filter by the season
-
-  const seasonSchedule = filterByLeagueSeason(districtEventList);
+  const filterByDate = filterBy<IQuickScoresGameData>(
+    game => game.Date >= todaysDate
+  );
 
   let upcomingGames: ILeagueTable = {};
 
-  for (let league of seasonSchedule) {
-    upcomingGames[league.LeagueID] = [];
+  for (const key of Object.keys(QUICKSCOREDIR)) {
+    const DistrictQuickScore = new QuickScoreDistrict(
+      QUICKSCOREDIR[key],
+      process.env[key]
+    );
 
-    let {
-      RegularGameData,
-      LeagueName,
-      SportName
-    } = await DistrictQuickScore.scheduleInfo(league.LeagueID);
-    console.log(SportName);
-    let newData = filterByDate(RegularGameData);
+    // Get event list
+    let districtEventList = await DistrictQuickScore.eventList();
+    //console.log(districtEventList);
+    //console.log(districtEventList);
 
-    newData.forEach(game => {
-      upcomingGames[league.LeagueID].push({
-        GameID: game.GameID,
+    // filter by sports first
+    // this avoids us then getting league data that we don't need later.
+
+    if (key === "CAROL_STREAM_PARK_DISTRICT") {
+      districtEventList = filterBySports([
+        "Soccer",
+        "Volleyball",
+        "Hockey",
+        "Dodgeball"
+      ])(districtEventList);
+    }
+
+    // TODO if carol stream only get soccer volleyball hockey dodgeball
+
+    // filter by the season
+
+    const seasonSchedule = filterByLeagueSeason(districtEventList);
+
+    for (let league of seasonSchedule) {
+      upcomingGames[league.LeagueID] = [];
+
+      let {
+        RegularGameData,
         LeagueName,
-        Date: game.Date,
-        Time: game.Time,
-        LocationName: game.LocationName,
-        HomeTeam: game.TeamName1,
-        AwayTeam: game.TeamName2
+        SportName
+      } = await DistrictQuickScore.scheduleInfo(league.LeagueID);
+      //console.log(SportName);
+      let newData = filterByDate(RegularGameData);
+
+      newData.forEach(game => {
+        upcomingGames[league.LeagueID].push({
+          GameID: game.GameID,
+          LeagueName,
+          Date: game.Date,
+          Time: game.Time,
+          LocationName: game.LocationName,
+          HomeTeam: game.TeamName1,
+          AwayTeam: game.TeamName2
+        });
       });
-    });
+    }
   }
 
   return upcomingGames;

@@ -2,15 +2,30 @@ require("dotenv").config();
 import "reflect-metadata";
 import express from "express";
 import bodyParser from "body-parser";
+import RateLimit from "express-rate-limit";
+import RedisStore from "rate-limit-redis";
 import { hwrpRouter } from "./routers/hwrp";
 import fileUpload from "express-fileupload";
 import { hwriRouter } from "./routers/hwri";
 import { QsRouter } from "./routers/qs";
 import { makeCsvDirectories } from "./utils/makeCsvDirectories";
 import { createDatabaseConn } from "./createDatabaseConn";
-import { QuickScore } from "./entity/QuickScore";
+import helmet from "helmet";
+import { redis } from "./redis";
+
+var limiter = new RateLimit({
+  store: RedisStore({
+    client: redis
+  }),
+  max: 100 // limit each IP to 100 requests per windowMs
+  // delayMs: 0 // disable delaying - full speed until the max limit is reached
+});
 
 const app = express();
+
+app.use(helmet());
+
+app.use(limiter);
 
 app.use(bodyParser.json());
 
@@ -31,14 +46,6 @@ const connection = createDatabaseConn();
 connection
   .then(() => {
     app.listen(port, async () => {
-      // const qs = await QuickScore.create({
-      //   season: "Winter",
-      //   year: 2018
-      // });
-
-      // qs.data = { name: "tj" };
-
-      // qs.save();
       console.log(`server is running on http://localhost:${port}`);
       try {
         await makeCsvDirectories();
