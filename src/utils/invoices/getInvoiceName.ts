@@ -1,4 +1,5 @@
 import { removeParenthesis } from "../removeParenthesis";
+import * as shortid from "shortid";
 
 export const getInvoiceName = (name: string) => {
   const reg = /\([a-zA-Z | \s | \D]*\)/g;
@@ -8,5 +9,5 @@ export const getInvoiceName = (name: string) => {
     const firstMatch = matches[0];
     return removeParenthesis(firstMatch);
   }
-  return "";
+  return shortid.generate();
 };
