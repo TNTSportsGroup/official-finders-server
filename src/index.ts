@@ -8,9 +8,11 @@ import { hwriRouter } from "./routers/hwri";
 import { QsRouter } from "./routers/qs";
 import { makeCsvDirectories } from "./utils/makeCsvDirectories";
 import { createDatabaseConn } from "./createDatabaseConn";
-import { QuickScore } from "./entity/QuickScore";
+import helmet from "helmet";
 
 const app = express();
+
+app.use(helmet());
 
 app.use(bodyParser.json());
 
