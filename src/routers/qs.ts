@@ -38,17 +38,15 @@ QsRouter.get("/file/:name", async (req, res) => {
 QsRouter.get("/", async (req, res) => {
   const { season, year } = req.query;
 
-  if (await isThisFirstTimeWeGetSchedulesToday(season, year)) {
-    res.send({
-      error: "You already request new and updates games today"
-    });
+  // if (await isThisFirstTimeWeGetSchedulesToday(season, year)) {
+  //   res.send({
+  //     error: "You already request new and updates games today"
+  //   });
 
-    return;
-  }
+  //   return;
+  // }
 
   const upcomingGames = await getUpcomingGames(season, year);
-
-  //console.log(upcomingGames);
 
   const { newGames, updatedGames } = await compareQuickScoreData(
     season,

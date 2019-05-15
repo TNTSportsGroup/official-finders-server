@@ -15,12 +15,9 @@ services:
     expose:
       - 6379
   server:
-    image: officialfinders/official-finders-server-dev
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    image: officialfinders/official-finders-server-prod:latest
     ports:
-      - 3000:3000
+      - 80:3000
     environment:
       - REDIS_PORT=6379
       - REDIS_HOST=redis

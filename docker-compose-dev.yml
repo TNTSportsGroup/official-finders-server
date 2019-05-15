@@ -19,7 +19,7 @@ services:
     restart: 'always'
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     environment:
@@ -30,13 +30,14 @@ services:
       - PGUSER=postgres
       - PGPORT=5432
     container_name: official-finders-server
-    volumes:
-      - /app/node_modules
-      - .:/app
+    # volumes:
+    #   - /app/node_modules
+    #   - .:/app
     depends_on:
       - redis
       - db
-    command: ["npm", "run", "start:dev"]  
+    #command: ["./wait-for-it.sh", "db:5432", "--", "node", "build/src/index.js"]   
+    #command: ["npm", "run", "start:dev"]  
   tests:
     build:
       context: .
