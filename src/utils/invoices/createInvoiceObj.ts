@@ -60,13 +60,21 @@ export const getCompleteTotal = invoiceObj => {
   let completeTotal = 0;
 
   return Object.keys(invoiceObj).reduce((prev, current) => {
-    return (
-      prev +
-      convertToSummableValue(
-        invoiceObj[current].games[invoiceObj[current].games.length - 1][
-          "Grand Total"
-        ]
-      )
-    );
+    if (
+      invoiceObj[current].games[invoiceObj[current].games.length - 1][
+        "Grand Total"
+      ]
+    ) {
+      return (
+        prev +
+        convertToSummableValue(
+          invoiceObj[current].games[invoiceObj[current].games.length - 1][
+            "Grand Total"
+          ]
+        )
+      );
+    }
+
+    return prev + 0;
   }, completeTotal);
 };
