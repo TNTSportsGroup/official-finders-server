@@ -38,21 +38,22 @@ QsRouter.get("/file/:name", async (req, res) => {
 QsRouter.get("/", async (req, res) => {
   const { season, year } = req.query;
 
-  // if (await isThisFirstTimeWeGetSchedulesToday(season, year)) {
-  //   res.send({
-  //     error: "You already request new and updates games today"
-  //   });
-
-  //   return;
-  // }
-
   const upcomingGames = await getUpcomingGames(season, year);
 
-  const { newGames, updatedGames } = await compareQuickScoreData(
+  let { newGames, updatedGames } = await compareQuickScoreData(
     season,
     year,
     upcomingGames
   );
+
+  newGames = newGames.filter(
+    game => game.HomeTeam !== "Practice" && game.AwayTeam !== "Practice"
+  );
+
+  newGames = newGames.filter(
+    game => game.HomeTeam !== "Bye" && game.AwayTeam !== "Bye"
+  );
+  console.log(newGames);
 
   const headers = [
     {
@@ -74,6 +75,10 @@ QsRouter.get("/", async (req, res) => {
     {
       id: "LocationName",
       title: "Facility"
+    },
+    {
+      id: "LeagueName",
+      title: "Game Code"
     }
   ];
 
