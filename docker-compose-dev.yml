@@ -1,7 +1,8 @@
 version: "3"
 services:
-  db:
+  postgres:
     image: postgres
+    hostname: postgres
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     ports:
@@ -10,6 +11,16 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=official-finders-server-dev
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    restart: unless-stopped 
   redis:
     image: redis
     expose:
@@ -24,7 +35,7 @@ services:
     environment:
       - REDIS_PORT=6379
       - REDIS_HOST=redis
-      - PGHOST=db
+      - PGHOST=postgres
       - PGPASSWORD=postgres
       - PGUSER=postgres
       - PGPORT=5432
@@ -34,7 +45,7 @@ services:
       - .:/app
     depends_on:
       - redis
-      - db
+      - postgres
     #command: ["./wait-for-it.sh", "db:5432", "--", "node", "build/src/index.js"]   
     #command: ["npm", "run", "start:dev"]  
   tests:
