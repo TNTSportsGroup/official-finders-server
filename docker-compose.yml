@@ -10,6 +10,16 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=official-finders-db-prod
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - db
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: tj@officialfinders.com
+      PGADMIN_DEFAULT_PASSWORD: Richard123!
+    restart: unless-stopped     
   redis:
     image: redis
     expose:
@@ -22,16 +32,14 @@ services:
       - REDIS_PORT=6379
       - REDIS_HOST=redis
       - PGHOST=db
-      - PGDATBASE=official-finders-db-prod
+      - PGDATABASE=official-finders-db-prod
       - PGPASSWORD=postgres
       - PGUSER=postgres
       - PGPORT=5432
     restart: 'always'  
     container_name: official-finders-server
-    volumes:
-      - /app/node_modules
-      - .:/app
     depends_on:
       - db
-    command: ["./wait-for-it.sh", "db:5432", "--", "node", "build/index.js"]  
+      - redis
+    command: ["./wait-for-it.sh", "db:5432", "-t", "4",  "--", "node", "build/index.js"]  
   
